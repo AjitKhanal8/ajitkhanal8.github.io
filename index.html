@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajit Khanal - PhD Student</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-tab {
+            position: relative;
+            padding-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tab.active {
+            color: #667eea;
+        }
+        
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+        
+        .nav-tab:hover:not(.active) {
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        .hidden-section {
+            display: none;
+        }
+        
+        .card {
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 12px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+        
+        .link-button {
+            transition: all 0.3s ease;
+        }
+        
+        .link-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .profile-photo {
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 25px -5px rgba(102, 126, 234, 0.3), 0 10px 10px -5px rgba(118, 75, 162, 0.2);
+        }
+        
+        .profile-photo:hover {
+            transform: scale(1.05);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .content-section {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .abstract-text {
+            line-height: 1.8;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .badge-publication {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .badge-working {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 via-purple-50 to-blue-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-lg border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-center items-center h-20">
+                <div class="flex space-x-12">
+                    <button onclick="showSection('home')" class="nav-tab active text-sm font-semibold text-purple-600 hover:text-purple-700 transition-colors uppercase tracking-wider" data-section="home">
+                        Home
+                    </button>
+                    <button onclick="showSection('cv')" class="nav-tab text-sm font-semibold text-gray-600 hover:text-purple-700 transition-colors uppercase tracking-wider" data-section="cv">
+                        CV
+                    </button>
+                    <button onclick="showSection('research')" class="nav-tab text-sm font-semibold text-gray-600 hover:text-purple-700 transition-colors uppercase tracking-wider" data-section="research">
+                        Research
+                    </button>
+                    <button onclick="showSection('teaching')" class="nav-tab text-sm font-semibold text-gray-600 hover:text-purple-700 transition-colors uppercase tracking-wider" data-section="teaching">
+                        Teaching
+                    </button>
+                    <button onclick="showSection('contact')" class="nav-tab text-sm font-semibold text-gray-600 hover:text-purple-700 transition-colors uppercase tracking-wider" data-section="contact">
+                        Contact
+                    </button>
+                    <button onclick="showSection('blog')" class="nav-tab text-sm font-semibold text-gray-600 hover:text-purple-700 transition-colors uppercase tracking-wider" data-section="blog">
+                        Blog
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        
+        <!-- Home Section -->
+        <div id="home-section" class="content-section">
+            <div class="max-w-5xl mx-auto text-center space-y-12">
+                <div class="flex justify-center">
+                    <div class="w-56 h-56 rounded-full overflow-hidden border-8 border-white profile-photo">
+                        <img src="profile-photo.jpg" alt="Ajit Khanal" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <h1 class="text-6xl font-bold gradient-text">Ajit Khanal</h1>
+                    <div class="space-y-3">
+                        <p class="text-2xl font-semibold text-gray-800">PhD Student</p>
+                        <p class="text-xl text-gray-600">Department of Agricultural and Applied Economics</p>
+                        <p class="text-xl font-medium text-purple-600">Virginia Tech</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CV Section -->
+        <div id="cv-section" class="content-section hidden-section">
+            <div class="w-full max-w-6xl mx-auto">
+                <h2 class="text-4xl font-bold text-gray-900 mb-8 section-title">Curriculum Vitae</h2>
+                <div class="w-full border-4 border-purple-200 rounded-2xl overflow-hidden shadow-2xl bg-white" style="height: 850px;">
+                    <iframe src="cv.pdf" class="w-full h-full" type="application/pdf">
+                        <p class="p-6 text-center">Your browser does not support PDFs. 
+                        <a href="cv.pdf" class="text-purple-600 hover:underline font-semibold">Download the PDF</a> to view it.</p>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Research Section -->
+        <div id="research-section" class="content-section hidden-section">
+            <div class="space-y-12 max-w-5xl mx-auto">
+                <h2 class="text-4xl font-bold text-gray-900 section-title">Research</h2>
+                
+                <!-- Publications Section -->
+                <section>
+                    <h3 class="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        Publications
+                        <span class="badge badge-publication">Peer-Reviewed</span>
+                    </h3>
+                    <div class="bg-white p-8 border-l-8 border-purple-600 rounded-2xl shadow-xl card">
+                        <h4 class="text-xl font-bold text-gray-900 mb-3">
+                            <a href="https://www.cambridge.org/core/journals/journal-of-agricultural-and-applied-economics/article/imported-challenge-economic-impact-of-fresh-fruit-and-vegetable-imports-on-us-producers/F896A6DCDA1A3B07D4C300C80E61543A" target="_blank" rel="noopener noreferrer" class="text-purple-600 hover:text-purple-800 hover:underline link-button inline-flex items-center gap-2">
+                                The Imported Challenge: Economic Impact of Fresh Fruit and Vegetable Imports on US Producers
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                        </h4>
+                        <p class="text-sm text-gray-600 mb-2 font-medium">with G. Munisamy and D. Poudel</p>
+                        <p class="text-sm text-purple-700 italic mb-4 font-semibold">Journal of Agricultural and Applied Economics, 56(4), 544-574, 2024</p>
+                        <div class="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-xl mt-4">
+                            <p class="text-gray-800 abstract-text">
+                                <span class="font-bold text-purple-700">Abstract:</span> Domestic fruit and vegetable producers contend that rising imports during seasonal harvesting windows have negatively impacted domestic prices and revenue. This study simulates producers' revenue with the removal of above-average imports as defined by the U.S. International Trade Commission. Results indicate significant additional revenues to domestic producers in the simulated scenario. Also, additional revenues to producers by state and season show substantial heterogeneity with robustness checks revealing similar patterns. Options such as risk management and technological improvements are needed to enhance the competitiveness of U.S. fresh produce industries instead of limiting imports in the absence of illegal dumping.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Working Papers Section -->
+                <section>
+                    <h3 class="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        Working Papers
+                        <span class="badge badge-working">In Progress</span>
+                    </h3>
+                    <div class="space-y-6">
+                        <div class="bg-white p-8 border-l-8 border-pink-500 rounded-2xl shadow-xl card">
+                            <h4 class="text-xl font-bold text-gray-900 mb-3">
+                                <a href="https://ageconsearch.umn.edu/record/361045?v=pdf" target="_blank" rel="noopener noreferrer" class="text-pink-600 hover:text-pink-800 hover:underline link-button inline-flex items-center gap-2">
+                                    Evaluating North American Dairy Trade Pre- and Post-USMCA Using a Quantitative Trade Model
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                </a>
+                            </h4>
+                            <p class="text-sm text-gray-600 mb-4 font-medium">with Jason H. Grant and Nicolas Legrand</p>
+                            <div class="bg-gradient-to-r from-pink-50 to-red-50 p-6 rounded-xl">
+                                <p class="text-gray-800 abstract-text">
+                                    <span class="font-bold text-pink-700">Abstract:</span> The United States-Mexico-Canada Agreement (USMCA), effective in 2020, revised dairy trade provisions between the United States and Canada. However, disputes have arisen over the allocation of Canada's tariff rate quotas (TRQs). This paper analyzes the impact of the USMCA on US dairy exports to Canada by quantifying changes in unobservable trade costs using an international border indicator and estimated trade elasticity within a structural gravity framework. Our empirical analysis finds no economically or statistically significant change in Canada's trade costs facing U.S. dairy exports—either at the aggregate or individual product level—following the implementation of the USMCA on July 1, 2020. Moreover, we estimate that U.S. exports face higher trade frictions in Canada than in other major export destinations (eg, 65.1 percent higher than Mexico). Counterfactual simulations suggest that reducing U.S.-Canada export frictions to levels comparable to U.S.-Mexico would increase U.S. exports to Canada and Canadian exports to the U.S., albeit with a decline in intra-national trade. Export diversification toward emerging economies, coupled with targeted trade negotiations, could mitigate U.S. reliance on Canada's dairy market.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-8 border-l-8 border-indigo-500 rounded-2xl shadow-xl card">
+                            <h4 class="text-xl font-bold text-gray-900 mb-3">Trust in Hypothetical Blockchain Claims</h4>
+                            <p class="text-sm text-gray-600 mb-4 font-medium">with William Secor and Benjamin Campbell</p>
+                            <div class="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-xl">
+                                <p class="text-gray-800 abstract-text">
+                                    <span class="font-bold text-indigo-700">Abstract:</span> Trust in credence attribute claims and food-related information is essential to generate value from the work taken to create the claim. Blockchain technology may soon be another way in which claims can be managed along the supply chain. This study investigates whether the verification mechanism behind a claim on a product, including blockchain, and the owner of that mechanism affects consumers' trust in the claim. Using information treatments in a national survey, the results suggest that the method verifying a claim is not important in most cases unless the method is described to the consumer.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-8 border-l-8 border-blue-500 rounded-2xl shadow-xl card">
+                            <h4 class="text-xl font-bold text-gray-900 mb-3">Distributional Assessment of the Impact of Imports and Exports on Net Farm Income</h4>
+                            <p class="text-sm text-gray-600 mb-4 font-medium">with Le Wang</p>
+                            <div class="bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-xl">
+                                <p class="text-gray-800 abstract-text">
+                                    In this project, we recognize that exposure to both imports and exports affects farm income. We construct a measure of exposure at the county level by taking into account a range of agricultural exports and imports across different countries. We employ an instrumental quantile regression model to quantify the effect across the entire income distribution.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-8 border-l-8 border-green-500 rounded-2xl shadow-xl card">
+                            <h4 class="text-xl font-bold text-gray-900 mb-3">Impact of Agricultural Imports on Farmland Rental Rates: A Causal ML Approach</h4>
+                            <p class="text-sm text-gray-600 mb-4 font-medium">with Le Wang</p>
+                            <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-xl">
+                                <p class="text-gray-800 abstract-text">
+                                    The motivation behind this project is the increasing farm size in the U.S. and declining farm numbers. We ask the following questions: 1) Does availability of new export markets cause lands of low-productive farms to be consolidated by more productive farms? 2) What is the effect of trade on land values across tenants and landowners?
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-8 border-l-8 border-teal-500 rounded-2xl shadow-xl card">
+                            <h4 class="text-xl font-bold text-gray-900 mb-3">Impact of Edge of Field Practices on Crop Productivity: An Event Study Approach</h4>
+                            <p class="text-sm text-gray-600 mb-4 font-medium">with Nicolas Legrand and Jason H. Grant</p>
+                            <div class="bg-gradient-to-r from-teal-50 to-cyan-50 p-6 rounded-xl">
+                                <p class="text-gray-800 abstract-text">
+                                    In 2015, the state of Minnesota introduced a buffer law under which farm fields bordering waters must maintain perennial vegetative buffers of up to 50 feet along lakes, rivers, and streams and buffers of up to 16.5 feet along ditches. Using county-level yield data and counties from neighboring states—Iowa, Wisconsin, South, and North Dakota—as controls, we assess the dynamic impact of the law on the yield of soybeans and corn.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Teaching Section -->
+        <div id="teaching-section" class="content-section hidden-section">
+            <div class="space-y-10 max-w-5xl mx-auto">
+                <h2 class="text-4xl font-bold text-gray-900 section-title">Teaching</h2>
+
+                <div class="space-y-6">
+                    <div class="bg-white p-8 rounded-2xl shadow-xl card border-t-8 border-purple-600">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-900">Econometric Theory and Practice: Causal Inference</h3>
+                                <p class="text-base text-purple-700 font-semibold mt-2">Graduate Teaching Assistant</p>
+                            </div>
+                            <span class="text-lg font-bold text-gray-700 bg-purple-100 px-4 py-2 rounded-full">Fall 2025</span>
+                        </div>
+                        <p class="text-gray-700 text-lg">
+                            Department of Agricultural and Applied Economics, Virginia Tech
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl shadow-xl card border-t-8 border-blue-600">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-900">The World Food Economy</h3>
+                                <p class="text-base text-blue-700 font-semibold mt-2">Graduate Teaching Assistant</p>
+                            </div>
+                            <span class="text-lg font-bold text-gray-700 bg-blue-100 px-4 py-2 rounded-full">Spring 2023</span>
+                        </div>
+                        <p class="text-gray-700 text-lg">
+                            Department of Agricultural and Applied Economics, University of Georgia
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div id="contact-section" class="content-section hidden-section">
+            <div class="space-y-10 max-w-4xl mx-auto">
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-2 section-title">Get in Touch</h2>
+                    <p class="text-lg text-gray-600 mt-6">Feel free to reach out with questions about my research or potential collaborations.</p>
+                </div>
+
+                <div id="contact-form" class="bg-white p-10 rounded-2xl shadow-xl">
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-gray-800 mb-3 font-semibold text-lg">Name</label>
+                            <input
+                                type="text"
+                                id="contact-name"
+                                class="w-full px-6 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-purple-500 transition-colors text-lg"
+                                placeholder="Your name"
+                            />
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-800 mb-3 font-semibold text-lg">Email</label>
+                            <input
+                                type="email"
+                                id="contact-email"
+                                class="w-full px-6 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-purple-500 transition-colors text-lg"
+                                placeholder="your.email@example.com"
+                            />
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-800 mb-3 font-semibold text-lg">Message</label>
+                            <textarea
+                                id="contact-message"
+                                rows="6"
+                                class="w-full px-6 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-purple-500 transition-colors text-lg"
+                                placeholder="Your message..."
+                            ></textarea>
+                        </div>
+
+                        <button
+                            onclick="submitForm()"
+                            class="w-full px-8 py-4 gradient-bg text-white rounded-xl hover:shadow-2xl transition-all font-bold text-lg uppercase tracking-wide"
+                        >
+                            Send Message
+                        </button>
+                    </div>
+                </div>
+
+                <div id="contact-success" class="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-500 text-green-800 p-8 rounded-2xl hidden shadow-xl">
+                    <p class="text-xl font-bold text-center">✓ Thank you for your message! I will get back to you soon.</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-purple-50 to-blue-50 p-10 rounded-2xl shadow-xl">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Contact Information</h3>
+                    <div class="space-y-5">
+                        <a href="mailto:ajitk@vt.edu" class="flex items-center gap-4 text-gray-700 hover:text-purple-700 transition-colors group text-lg">
+                            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center group-hover:bg-purple-200 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                            </div>
+                            <span class="font-semibold">ajitk@vt.edu</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/ajitkhanal" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 text-gray-700 hover:text-purple-700 transition-colors group text-lg">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                            </div>
+                            <span class="font-semibold">LinkedIn: /ajitkhanal</span>
+                        </a>
+                        <a href="https://github.com/AjitKhanal8" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 text-gray-700 hover:text-purple-700 transition-colors group text-lg">
+                            <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center group-hover:bg-gray-200 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                            </div>
+                            <span class="font-semibold">GitHub</span>
+                        </a>
+                    </div>
+                    <div class="mt-8 pt-8 border-t-2 border-purple-200">
+                        <div class="space-y-2 text-gray-700 text-base">
+                            <p class="font-semibold text-lg text-gray-900">Office Address</p>
+                            <p>Hutcheson Hall, Virginia Tech</p>
+                            <p>250 Drillfield Drive</p>
+                            <p>Blacksburg, VA 24061</p>
+                            <p class="mt-3 font-semibold">Phone: (706) 765-5031</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Section -->
+        <div id="blog-section" class="content-section hidden-section">
+            <div class="space-y-10 max-w-5xl mx-auto">
+                <h2 class="text-4xl font-bold text-gray-900 section-title">Blog</h2>
+                <div class="bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 p-20 rounded-3xl text-center shadow-2xl">
+                    <div class="space-y-4">
+                        <div class="text-6xl">✍️</div>
+                        <p class="text-3xl font-bold gradient-text">Stay Tuned for Blogs</p>
+                        <p class="text-lg text-gray-600">Coming soon: Insights on agricultural economics, trade policy, and research methodology</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white mt-24 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-4">
+                <p class="text-lg font-semibold">© 2024 Ajit Khanal</p>
+                <p class="text-sm opacity-90">PhD Student • Department of Agricultural and Applied Economics • Virginia Tech</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.add('hidden-section');
+            });
+
+            // Show the selected section
+            const selectedSection = document.getElementById(sectionId + '-section');
+            if (selectedSection) {
+                selectedSection.classList.remove('hidden-section');
+            }
+
+            // Update navigation active state
+            const navButtons = document.querySelectorAll('.nav-tab');
+            navButtons.forEach(button => {
+                button.classList.remove('active');
+                button.classList.remove('text-purple-600');
+                button.classList.add('text-gray-600');
+            });
+
+            const activeButton = document.querySelector(`[data-section="${sectionId}"]`);
+            if (activeButton) {
+                activeButton.classList.add('active');
+                activeButton.classList.remove('text-gray-600');
+                activeButton.classList.add('text-purple-600');
+            }
+
+            // Scroll to top smoothly
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        function submitForm() {
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const message = document.getElementById('contact-message').value;
+
+            if (name && email && message) {
+                // Hide form
+                document.getElementById('contact-form').style.display = 'none';
+                
+                // Show success message
+                document.getElementById('contact-success').classList.remove('hidden');
+
+                // Reset form and show it again after 3 seconds
+                setTimeout(() => {
+                    document.getElementById('contact-form').style.display = 'block';
+                    document.getElementById('contact-success').classList.add('hidden');
+                    document.getElementById('contact-name').value = '';
+                    document.getElementById('contact-email').value = '';
+                    document.getElementById('contact-message').value = '';
+                }, 3000);
+            } else {
+                alert('Please fill in all fields');
+            }
+        }
+    </script>
+</body>
+</html>
