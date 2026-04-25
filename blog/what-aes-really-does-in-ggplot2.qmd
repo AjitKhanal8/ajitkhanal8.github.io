@@ -211,7 +211,7 @@ And then the geom uses that mapping:
 
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy, shape = drv)) +
-  geom_point(color = "purple", alpha = 0.75, size = 2.8)
+  geom_point()
 ```
 
 There are many other arguments that can go inside `aes()`, but the basic idea is the same. At this point, all you need to understand are the two takeaways, which I will repeat here:

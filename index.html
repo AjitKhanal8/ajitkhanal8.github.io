@@ -10,27 +10,25 @@
         
         body {
             font-family: 'Inter', sans-serif;
+            color: #1f2937;
         }
         
         .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #111827;
         }
         
         .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #111827;
         }
         
         .nav-tab {
             position: relative;
             padding-bottom: 8px;
-            transition: all 0.3s ease;
+            transition: color 0.2s ease;
         }
         
         .nav-tab.active {
-            color: #667eea;
+            color: #111827;
         }
         
         .nav-tab.active::after {
@@ -39,14 +37,13 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 2px;
+            background: #111827;
             border-radius: 2px;
         }
         
         .nav-tab:hover:not(.active) {
-            color: #667eea;
-            transform: translateY(-2px);
+            color: #111827;
         }
         
         .hidden-section {
@@ -54,12 +51,11 @@
         }
         
         .card {
-            transition: all 0.3s ease;
+            transition: box-shadow 0.2s ease;
         }
         
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
         }
         
         .section-title {
@@ -74,26 +70,21 @@
             bottom: 0;
             left: 0;
             width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 3px;
+            background: #d1d5db;
             border-radius: 2px;
         }
         
         .link-button {
-            transition: all 0.3s ease;
+            transition: opacity 0.2s ease;
         }
         
         .link-button:hover {
-            transform: scale(1.05);
+            opacity: 0.9;
         }
         
         .profile-photo {
-            transition: all 0.3s ease;
-            box-shadow: 0 20px 25px -5px rgba(102, 126, 234, 0.3), 0 10px 10px -5px rgba(118, 75, 162, 0.2);
-        }
-        
-        .profile-photo:hover {
-            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
         }
         
         @keyframes fadeIn {
@@ -126,38 +117,38 @@
         }
         
         .badge-publication {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: #e5e7eb;
+            color: #374151;
         }
         
         .badge-working {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
+            background: #e5e7eb;
+            color: #374151;
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-gray-50 via-purple-50 to-blue-50 min-h-screen">
+<body class="bg-gray-50 min-h-screen">
     <!-- Navigation -->
-    <nav class="bg-white/80 backdrop-blur-lg border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-center items-center h-20">
-                <div class="flex space-x-12">
-                    <button onclick="showSection('home')" class="nav-tab active text-sm font-semibold text-purple-600 hover:text-purple-700 transition-colors uppercase tracking-wider" data-section="home">
+            <div class="flex justify-center items-center min-h-20 py-4">
+                <div class="flex flex-wrap justify-center gap-x-8 gap-y-3">
+                    <button onclick="showSection('home')" class="nav-tab active text-sm font-semibold text-gray-900 transition-colors uppercase tracking-wider" data-section="home">
                         Home
                     </button>
-                    <button onclick="showSection('cv')" class="nav-tab text-sm font-semibold text-gray-600 hover:text-purple-700 transition-colors uppercase tracking-wider" data-section="cv">
+                    <button onclick="showSection('cv')" class="nav-tab text-sm font-semibold text-gray-600 transition-colors uppercase tracking-wider" data-section="cv">
                         CV
                     </button>
-                    <button onclick="showSection('research')" class="nav-tab text-sm font-semibold text-gray-600 hover:text-purple-700 transition-colors uppercase tracking-wider" data-section="research">
+                    <button onclick="showSection('research')" class="nav-tab text-sm font-semibold text-gray-600 transition-colors uppercase tracking-wider" data-section="research">
                         Research
                     </button>
-                    <button onclick="showSection('teaching')" class="nav-tab text-sm font-semibold text-gray-600 hover:text-purple-700 transition-colors uppercase tracking-wider" data-section="teaching">
+                    <button onclick="showSection('teaching')" class="nav-tab text-sm font-semibold text-gray-600 transition-colors uppercase tracking-wider" data-section="teaching">
                         Teaching
                     </button>
-                    <button onclick="showSection('contact')" class="nav-tab text-sm font-semibold text-gray-600 hover:text-purple-700 transition-colors uppercase tracking-wider" data-section="contact">
+                    <button onclick="showSection('contact')" class="nav-tab text-sm font-semibold text-gray-600 transition-colors uppercase tracking-wider" data-section="contact">
                         Contact
                     </button>
-                    <button onclick="showSection('blog')" class="nav-tab text-sm font-semibold text-gray-600 hover:text-purple-700 transition-colors uppercase tracking-wider" data-section="blog">
+                    <button onclick="showSection('blog')" class="nav-tab text-sm font-semibold text-gray-600 transition-colors uppercase tracking-wider" data-section="blog">
                         Blog
                     </button>
                 </div>
@@ -181,7 +172,7 @@
                     <div class="space-y-3">
                         <p class="text-2xl font-semibold text-gray-800">PhD Student</p>
                         <p class="text-xl text-gray-600">Department of Agricultural and Applied Economics</p>
-                        <p class="text-xl font-medium text-purple-600">Virginia Tech</p>
+                        <p class="text-xl font-medium text-gray-700">Virginia Tech</p>
                     </div>
                 </div>
             </div>
@@ -228,69 +219,6 @@
                     </div>
                 </section>
 
-                <!-- Working Papers Section -->
-                <section>
-                    <h3 class="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-                        Working Papers
-                        <span class="badge badge-working">In Progress</span>
-                    </h3>
-                    <div class="space-y-6">
-                        <div class="bg-white p-8 border-l-8 border-pink-500 rounded-2xl shadow-xl card">
-                            <h4 class="text-xl font-bold text-gray-900 mb-3">
-                                <a href="https://ageconsearch.umn.edu/record/361045?v=pdf" target="_blank" rel="noopener noreferrer" class="text-pink-600 hover:text-pink-800 hover:underline link-button inline-flex items-center gap-2">
-                                    Evaluating North American Dairy Trade Pre- and Post-USMCA Using a Quantitative Trade Model
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                                </a>
-                            </h4>
-                            <p class="text-sm text-gray-600 mb-4 font-medium">with Jason H. Grant and Nicolas Legrand</p>
-                            <div class="bg-gradient-to-r from-pink-50 to-red-50 p-6 rounded-xl">
-                                <p class="text-gray-800 abstract-text">
-                                    <span class="font-bold text-pink-700">Abstract:</span> The United States-Mexico-Canada Agreement (USMCA), effective in 2020, revised dairy trade provisions between the United States and Canada. However, disputes have arisen over the allocation of Canada's tariff rate quotas (TRQs). This paper analyzes the impact of the USMCA on US dairy exports to Canada by quantifying changes in unobservable trade costs using an international border indicator and estimated trade elasticity within a structural gravity framework. Our empirical analysis finds no economically or statistically significant change in Canada's trade costs facing U.S. dairy exports—either at the aggregate or individual product level—following the implementation of the USMCA on July 1, 2020. Moreover, we estimate that U.S. exports face higher trade frictions in Canada than in other major export destinations (eg, 65.1 percent higher than Mexico). Counterfactual simulations suggest that reducing U.S.-Canada export frictions to levels comparable to U.S.-Mexico would increase U.S. exports to Canada and Canadian exports to the U.S., albeit with a decline in intra-national trade. Export diversification toward emerging economies, coupled with targeted trade negotiations, could mitigate U.S. reliance on Canada's dairy market.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-8 border-l-8 border-indigo-500 rounded-2xl shadow-xl card">
-                            <h4 class="text-xl font-bold text-gray-900 mb-3">Trust in Hypothetical Blockchain Claims</h4>
-                            <p class="text-sm text-gray-600 mb-4 font-medium">with William Secor and Benjamin Campbell</p>
-                            <div class="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-xl">
-                                <p class="text-gray-800 abstract-text">
-                                    <span class="font-bold text-indigo-700">Abstract:</span> Trust in credence attribute claims and food-related information is essential to generate value from the work taken to create the claim. Blockchain technology may soon be another way in which claims can be managed along the supply chain. This study investigates whether the verification mechanism behind a claim on a product, including blockchain, and the owner of that mechanism affects consumers' trust in the claim. Using information treatments in a national survey, the results suggest that the method verifying a claim is not important in most cases unless the method is described to the consumer.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-8 border-l-8 border-blue-500 rounded-2xl shadow-xl card">
-                            <h4 class="text-xl font-bold text-gray-900 mb-3">Distributional Assessment of the Impact of Imports and Exports on Net Farm Income</h4>
-                            <p class="text-sm text-gray-600 mb-4 font-medium">with Le Wang</p>
-                            <div class="bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-xl">
-                                <p class="text-gray-800 abstract-text">
-                                    In this project, we recognize that exposure to both imports and exports affects farm income. We construct a measure of exposure at the county level by taking into account a range of agricultural exports and imports across different countries. We employ an instrumental quantile regression model to quantify the effect across the entire income distribution.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-8 border-l-8 border-green-500 rounded-2xl shadow-xl card">
-                            <h4 class="text-xl font-bold text-gray-900 mb-3">Impact of Agricultural Imports on Farmland Rental Rates: A Causal ML Approach</h4>
-                            <p class="text-sm text-gray-600 mb-4 font-medium">with Le Wang</p>
-                            <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-xl">
-                                <p class="text-gray-800 abstract-text">
-                                    The motivation behind this project is the increasing farm size in the U.S. and declining farm numbers. We ask the following questions: 1) Does availability of new export markets cause lands of low-productive farms to be consolidated by more productive farms? 2) What is the effect of trade on land values across tenants and landowners?
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-8 border-l-8 border-teal-500 rounded-2xl shadow-xl card">
-                            <h4 class="text-xl font-bold text-gray-900 mb-3">Impact of Edge of Field Practices on Crop Productivity: An Event Study Approach</h4>
-                            <p class="text-sm text-gray-600 mb-4 font-medium">with Nicolas Legrand and Jason H. Grant</p>
-                            <div class="bg-gradient-to-r from-teal-50 to-cyan-50 p-6 rounded-xl">
-                                <p class="text-gray-800 abstract-text">
-                                    In 2015, the state of Minnesota introduced a buffer law under which farm fields bordering waters must maintain perennial vegetative buffers of up to 50 feet along lakes, rivers, and streams and buffers of up to 16.5 feet along ditches. Using county-level yield data and counties from neighboring states—Iowa, Wisconsin, South, and North Dakota—as controls, we assess the dynamic impact of the law on the yield of soybeans and corn.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
             </div>
         </div>
 
@@ -421,48 +349,22 @@
         <div id="blog-section" class="content-section hidden-section">
             <div class="space-y-10 max-w-5xl mx-auto">
                 <h2 class="text-4xl font-bold text-gray-900 section-title">Blog</h2>
-                <div class="bg-white rounded-3xl shadow-2xl border border-purple-100 overflow-hidden card">
-                    <div class="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 px-10 py-12 text-white">
-                        <p class="text-sm font-semibold uppercase tracking-[0.25em] opacity-90">Featured Post</p>
-                        <h3 class="mt-4 text-3xl md:text-4xl font-bold leading-tight">What <span class="bg-white/15 px-3 py-1 rounded-xl">aes()</span> Really Does in ggplot2</h3>
-                        <p class="mt-4 text-lg text-purple-50 max-w-3xl">
-                            A beginner-friendly explanation of how <span class="font-semibold">ggplot2</span> maps data to visual roles, and why that matters if you want to validate charts instead of just generating them.
-                        </p>
-                    </div>
-                    <div class="px-10 py-10 space-y-6">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 card">
+                    <div class="space-y-4">
                         <div class="flex flex-wrap gap-3 text-sm font-semibold">
-                            <span class="px-4 py-2 rounded-full bg-purple-100 text-purple-700">R</span>
-                            <span class="px-4 py-2 rounded-full bg-blue-100 text-blue-700">ggplot2</span>
-                            <span class="px-4 py-2 rounded-full bg-indigo-100 text-indigo-700">Data Visualization</span>
+                            <span class="px-3 py-1 rounded-full bg-gray-100 text-gray-700">R</span>
+                            <span class="px-3 py-1 rounded-full bg-gray-100 text-gray-700">ggplot2</span>
+                            <span class="px-3 py-1 rounded-full bg-gray-100 text-gray-700">Data Visualization</span>
+                            <span class="px-3 py-1 rounded-full bg-gray-100 text-gray-700">4 min read</span>
                         </div>
-                        <p class="text-lg text-gray-700 leading-8">
-                            I wrote this post after realizing AI was helping me make plots faster than I actually understood them.
-                            The idea that helped me slow down was simple: <span class="font-semibold text-purple-700">aes() does not draw anything. It maps data to visual roles, and geoms use those instructions to draw the chart.</span>
-                        </p>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div class="bg-gradient-to-br from-gray-50 to-purple-50 rounded-2xl p-6 border border-gray-100">
-                                <p class="text-sm font-semibold uppercase tracking-wide text-purple-700">What You Will Learn</p>
-                                <ul class="mt-4 space-y-3 text-gray-700 leading-7 list-disc list-inside">
-                                    <li>How <span class="font-semibold">data</span>, <span class="font-semibold">mapping</span>, and <span class="font-semibold">geom</span> work together</li>
-                                    <li>Why <span class="font-semibold">aes()</span> is the mapping layer</li>
-                                    <li>The difference between mapping a variable and setting a fixed style</li>
-                                </ul>
-                            </div>
-                            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
-                                <p class="text-sm font-semibold uppercase tracking-wide text-blue-700">Read Time</p>
-                                <p class="mt-4 text-gray-700 leading-7">
-                                    About 4 minutes. Written for beginners in R who want a clearer mental model before memorizing more syntax.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="pt-2">
-                            <a href="blog/what-aes-really-does-in-ggplot2.html" class="inline-flex items-center gap-3 px-8 py-4 gradient-bg text-white rounded-xl hover:shadow-2xl transition-all font-bold text-lg uppercase tracking-wide link-button">
-                                Read the Post
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
+                        <h3 class="text-2xl md:text-3xl font-bold text-gray-900 leading-tight">
+                            <a href="blog/what-aes-really-does-in-ggplot2.html" class="hover:underline">
+                                What <span class="font-mono">aes()</span> Really Does in ggplot2
                             </a>
-                        </div>
+                        </h3>
+                        <p class="text-base text-gray-600 leading-7 max-w-3xl">
+                            A beginner-friendly explanation of how ggplot2 maps data to visual roles.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -471,11 +373,11 @@
     </main>
 
     <!-- Footer -->
-    <footer class="gradient-bg text-white mt-24 py-12">
+    <footer class="bg-white border-t border-gray-200 mt-24 py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center space-y-4">
-                <p class="text-lg font-semibold">© 2024 Ajit Khanal</p>
-                <p class="text-sm opacity-90">PhD Student • Department of Agricultural and Applied Economics • Virginia Tech</p>
+                <p class="text-lg font-semibold text-gray-900">© 2024 Ajit Khanal</p>
+                <p class="text-sm text-gray-600">PhD Student • Department of Agricultural and Applied Economics • Virginia Tech</p>
             </div>
         </div>
     </footer>
@@ -498,7 +400,7 @@
             const navButtons = document.querySelectorAll('.nav-tab');
             navButtons.forEach(button => {
                 button.classList.remove('active');
-                button.classList.remove('text-purple-600');
+                button.classList.remove('text-gray-900');
                 button.classList.add('text-gray-600');
             });
 
@@ -506,7 +408,7 @@
             if (activeButton) {
                 activeButton.classList.add('active');
                 activeButton.classList.remove('text-gray-600');
-                activeButton.classList.add('text-purple-600');
+                activeButton.classList.add('text-gray-900');
             }
 
             // Scroll to top smoothly
