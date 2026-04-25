@@ -10,12 +10,6 @@ execute:
   message: false
 ---
 
-```{r}
-library(ggplot2)
-library(dplyr)
-library(knitr)
-```
-
 In today's blog, I want to briefly explain what `aes()` does in `ggplot()`. There are two main takeaways:
 
 - `aes()` is a function that maps variables in your dataset, or variables you create after transformation, to a **new dataset: a visual dataset**, which `geoms` then use to construct the plot.
@@ -24,6 +18,14 @@ In today's blog, I want to briefly explain what `aes()` does in `ggplot()`. Ther
 Understanding these two things helps build a mental model before making a plot, and it also means you do not have to memorize all the arguments that `aes()` can take.
 
 Everything before this point is the big idea. Now let us work through it with a real dataset that comes with `ggplot2`.
+
+Load the necessary libraries. We will use `ggplot2` for plotting, `dplyr` for making the visual datasets, and `knitr` for showing the tables.
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(knitr)
+```
 
 ## Start with one built-in dataset
 
@@ -64,6 +66,8 @@ Before we even add a geom, `aes()` is already doing something useful. It is matc
 - `hwy` to `y`
 
 So the visual dataset begins like this:
+
+Please do not worry about making this table. For this blog, just focus on understanding what `aes()` does.
 
 ```{r}
 visual_xy <- mpg |>

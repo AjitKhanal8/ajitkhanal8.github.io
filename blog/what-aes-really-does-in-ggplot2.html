@@ -103,11 +103,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <p>In today’s blog, I want to briefly explain what <code>aes()</code> does in <code>ggplot()</code>. There are two main takeaways:</p>
 <ul>
 <li><code>aes()</code> is a function that maps variables in your dataset, or variables you create after transformation, to a <strong>new dataset: a visual dataset</strong>, which <code>geoms</code> then use to construct the plot.</li>
@@ -115,6 +110,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Understanding these two things helps build a mental model before making a plot, and it also means you do not have to memorize all the arguments that <code>aes()</code> can take.</p>
 <p>Everything before this point is the big idea. Now let us work through it with a real dataset that comes with <code>ggplot2</code>.</p>
+<p>Load the necessary libraries. We will use <code>ggplot2</code> for plotting, <code>dplyr</code> for making the visual datasets, and <code>knitr</code> for showing the tables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="start-with-one-built-in-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="start-with-one-built-in-dataset">Start with one built-in dataset</h2>
 <p>We will use <code>mpg</code>, a dataset that comes with <code>ggplot2</code>.</p>
@@ -207,6 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>hwy</code> to <code>y</code></li>
 </ul>
 <p>So the visual dataset begins like this:</p>
+<p>Please do not worry about making this table. For this blog, just focus on understanding what <code>aes()</code> does.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>visual_xy <span class="ot">&lt;-</span> mpg <span class="sc">|&gt;</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy) <span class="sc">|&gt;</span></span>
