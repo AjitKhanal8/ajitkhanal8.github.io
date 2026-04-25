@@ -4,118 +4,182 @@ author: "Ajit Khanal"
 format:
   html:
     toc: false
+execute:
+  echo: true
+  warning: false
+  message: false
 ---
 
-I wanted to learn `ggplot2` because I felt like AI was helping me make plots faster than I actually understood them. That is useful, but it also means I need a way to check whether the code and the picture really make sense.
-
-The idea that finally clicked for me was simple: `aes()` does not draw anything. It matches columns in your dataset to parts of the plot.
-
-## Start with one tiny dataset
-
-Instead of starting with lots of arguments, it helps to start with a tiny dataset we can actually read.
-
-```r
-farm_data <- data.frame(
-  farm = c("A", "B", "C"),
-  income = c(40, 55, 70),
-  yield = c(3.2, 4.1, 4.8),
-  region = c("East", "West", "East")
-)
+```{r}
+library(ggplot2)
+library(dplyr)
+library(knitr)
 ```
 
-| farm | income | yield | region |
-|------|--------|-------|--------|
-| A    | 40     | 3.2   | East   |
-| B    | 55     | 4.1   | West   |
-| C    | 70     | 4.8   | East   |
+In today's blog, I want to briefly explain what `aes()` does in `ggplot()`. There are two main takeaways:
+
+- `aes()` is a function that maps variables of your dataset (or one you have created after transformation) to a **new dataset: a visual dataset**, which `geoms` then use to construct the plot.
+- All the variables that you feed into `aes()` must have the same number of rows.
+
+Understanding these two things helps build a mental model before making a plot, and it also means you do not have to memorize all the arguments that `aes()` can take.
+
+Everything before this point is the big idea. Now let us work through it with a real dataset that comes with `ggplot2`.
+
+## Start with one built-in dataset
+
+I think this is more helpful for beginners than inventing a tiny dataset from scratch, because you can run the example immediately on your own machine.
+
+We will use `mpg`, a dataset that comes with `ggplot2`.
+
+```{r}
+mpg_preview <- mpg |>
+  select(manufacturer, displ, hwy, class, drv) |>
+  slice(1:6)
+
+kable(mpg_preview)
+```
+
+This is only a preview of the first 6 rows. The full dataset has `r nrow(mpg)` rows.
 
 ## The simple idea
 
-`aes()` takes columns from your dataset and gives them new jobs in the plot. I like to think of it as making a small "visual dataset" that the geom can use later.
+`aes()` takes columns from your dataset and gives them new jobs in the plot. I like to think of it as making a small visual dataset that the geom can use later.
 
 ## Example 1: map two columns to `x` and `y`
 
 Suppose we write:
 
-```r
-ggplot(farm_data, aes(x = income, y = yield))
+```{r}
+#| eval: false
+ggplot(mpg, aes(x = displ, y = hwy))
 ```
 
 Before we even add a geom, `aes()` is already doing something useful. It is matching:
 
-- `income` to `x`
-- `yield` to `y`
+- `displ` to `x`
+- `hwy` to `y`
 
-So the visual dataset now looks like this:
+So the visual dataset begins like this:
 
-| x  | y   |
-|----|-----|
-| 40 | 3.2 |
-| 55 | 4.1 |
-| 70 | 4.8 |
+```{r}
+visual_xy <- mpg |>
+  transmute(x = displ, y = hwy) |>
+  slice(1:6)
+
+kable(visual_xy)
+```
 
 Nothing has been drawn yet. We just have a new table that says where each row should go on the plot.
 
 Then when we add a geom:
 
-```r
-ggplot(farm_data, aes(x = income, y = yield)) +
-  geom_point()
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(color = "steelblue", alpha = 0.7, size = 2.5)
 ```
 
 `geom_point()` uses that visual dataset and draws one point for each row.
 
-## Example 2: map one column to position and another to color
+## Example 2: add a transformation
 
-Now suppose we write:
+Now suppose we transform `displ` inside `aes()`:
 
-```r
-ggplot(farm_data, aes(x = income, color = region))
+```{r}
+#| eval: false
+ggplot(mpg, aes(x = log(displ), y = hwy))
 ```
 
-This time, `aes()` matches:
+This still works because `log(displ)` returns one value for each row of the dataset.
 
-- `income` to `x`
-- `region` to `color`
+So the visual dataset still has the same number of rows. It just begins like this:
 
-So the visual dataset now looks like this:
+```{r}
+visual_log <- mpg |>
+  transmute(x = log(displ), y = hwy) |>
+  slice(1:6)
 
-| x  | color |
-|----|-------|
-| 40 | East  |
-| 55 | West  |
-| 70 | East  |
-
-Again, nothing has been drawn yet. We only know that rows from the East should get one color and rows from the West should get another.
-
-Then we can draw it with a geom:
-
-```r
-ggplot(farm_data, aes(x = income, color = region)) +
-  geom_density()
+kable(visual_log, digits = 3)
 ```
 
-## One important difference: mapping is not the same as setting
+Then we can draw the plot:
 
-These two lines look similar, but they do different things:
-
-```r
-aes(color = region)
-color = "steelblue"
+```{r}
+ggplot(mpg, aes(x = log(displ), y = hwy)) +
+  geom_point(color = "darkorange", alpha = 0.7, size = 2.5)
 ```
 
-The first one uses data. The second one uses a fixed style.
+This example helps explain the second takeaway: transformed variables are fine inside `aes()` as long as they still give one value per row.
 
-- `aes(color = region)` means color depends on the dataset
-- `color = "steelblue"` means every mark gets the same color
+## Example 3: create a new visual variable inside `aes()`
 
-## What I want students to take away
+This is closer to one of the examples from my notes, where the mapping uses a logical statement.
 
-When I read `ggplot2` code now, I ask two simple questions:
+Suppose we write:
 
-- Which dataset am I starting with?
-- What new jobs is `aes()` giving to those columns?
+```{r}
+#| eval: false
+ggplot(mpg, aes(x = displ, y = hwy, color = hwy > 30))
+```
 
-After that, the geom is much easier to understand.
+Now `aes()` is matching:
 
-There are many other arguments that can go inside `aes()`, but the idea is the same: take a column from your data and match it to a part of the plot.
+- `displ` to `x`
+- `hwy` to `y`
+- `hwy > 30` to `color`
+
+So the visual dataset begins like this:
+
+```{r}
+visual_flag <- mpg |>
+  transmute(
+    x = displ,
+    y = hwy,
+    color = hwy > 30
+  ) |>
+  slice(1:6)
+
+kable(visual_flag)
+```
+
+The new `color` column is made of `TRUE` and `FALSE`, but it still has one value per row.
+
+Then we can draw the plot:
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy, color = hwy > 30)) +
+  geom_point(alpha = 0.75, size = 2.5)
+```
+
+## Example 4: another mapping like the ones in my screenshot
+
+Here is one more example using another argument inside `aes()`:
+
+```{r}
+#| eval: false
+ggplot(mpg, aes(x = displ, y = hwy, shape = drv))
+```
+
+Here `drv` is being mapped to `shape`, just like `region` could be mapped to shape in a different dataset.
+
+So the visual dataset begins like this:
+
+```{r}
+visual_shape <- mpg |>
+  transmute(
+    x = displ,
+    y = hwy,
+    shape = drv
+  ) |>
+  slice(1:6)
+
+kable(visual_shape)
+```
+
+And then the geom uses that mapping:
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy, shape = drv)) +
+  geom_point(color = "purple", alpha = 0.75, size = 2.8)
+```
+
+There are many other arguments that can go inside `aes()`, but the basic idea is the same: take a column from your data, or create one through a transformation, and match it to a part of the plot.

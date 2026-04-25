@@ -108,89 +108,109 @@
 
     <main class="max-w-5xl mx-auto px-6 py-12">
         <article class="bg-white rounded-[2rem] p-8 md:p-12 article-card">
-            <figure class="overflow-hidden rounded-[1.5rem] border border-purple-100 bg-[#fffdf8]">
-                <img src="assets/ggplot2-aes-visual.svg" alt="Diagram showing data flowing into aes mappings and then into a geom, plus a mapping-versus-setting comparison." class="w-full h-auto">
-            </figure>
-            <p class="mt-4 text-sm text-gray-500">Mental model: <code>aes()</code> creates visual instructions; geoms use them to draw.</p>
-
             <div class="prose-body mt-10 space-y-8 text-lg">
                 <p>
-                    I wanted to learn <code>ggplot2</code> because I felt like AI was helping me make plots faster than I actually understood them.
-                    That is useful, but it also means I need a way to check whether the code and the picture really make sense.
+                    In today's blog, I want to briefly explain what <code>aes()</code> does in <code>ggplot()</code>. There are two main takeaways:
                 </p>
+                <ul class="list-disc list-inside space-y-3">
+                    <li><code>aes()</code> maps variables from your dataset, or ones you create after transformation, to a new dataset: a <span class="font-semibold">visual dataset</span>, which geoms then use to construct the plot.</li>
+                    <li>All the variables that you feed into <code>aes()</code> must have the same number of rows.</li>
+                </ul>
 
                 <p>
-                    The idea that finally clicked for me was simple:
-                    <span class="font-semibold text-purple-700"><code>aes()</code> does not draw anything. It matches columns in your dataset to parts of the plot.</span>
+                    Understanding these two things helps build a mental model before making a plot, and it also means you do not have to memorize all the arguments that <code>aes()</code> can take.
                 </p>
 
                 <section class="space-y-5">
-                    <h2 class="text-3xl font-bold text-gray-900">Start with one tiny dataset</h2>
+                    <h2 class="text-3xl font-bold text-gray-900">Start with one built-in dataset</h2>
                     <p>
-                        Instead of starting with lots of arguments, it helps to start with a tiny dataset we can actually read.
+                        I think this is more helpful for beginners than inventing a tiny dataset from scratch, because you can run the example immediately on your own machine.
                     </p>
-                    <pre><code>farm_data &lt;- data.frame(
-  farm = c("A", "B", "C"),
-  income = c(40, 55, 70),
-  yield = c(3.2, 4.1, 4.8),
-  region = c("East", "West", "East")
-)</code></pre>
+                    <p>
+                        We will use <code>mpg</code>, a dataset that comes with <code>ggplot2</code>. The table below only shows the first 6 rows. The full dataset has 234 rows.
+                    </p>
 
                     <div class="overflow-x-auto border border-purple-100 rounded-2xl">
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>farm</th>
-                                    <th>income</th>
-                                    <th>yield</th>
-                                    <th>region</th>
+                                    <th>manufacturer</th>
+                                    <th>displ</th>
+                                    <th>hwy</th>
+                                    <th>class</th>
+                                    <th>drv</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>A</td>
-                                    <td>40</td>
-                                    <td>3.2</td>
-                                    <td>East</td>
+                                    <td>audi</td>
+                                    <td>1.8</td>
+                                    <td>29</td>
+                                    <td>compact</td>
+                                    <td>f</td>
                                 </tr>
                                 <tr>
-                                    <td>B</td>
-                                    <td>55</td>
-                                    <td>4.1</td>
-                                    <td>West</td>
+                                    <td>audi</td>
+                                    <td>1.8</td>
+                                    <td>29</td>
+                                    <td>compact</td>
+                                    <td>f</td>
                                 </tr>
                                 <tr>
-                                    <td>C</td>
-                                    <td>70</td>
-                                    <td>4.8</td>
-                                    <td>East</td>
+                                    <td>audi</td>
+                                    <td>2.0</td>
+                                    <td>31</td>
+                                    <td>compact</td>
+                                    <td>f</td>
+                                </tr>
+                                <tr>
+                                    <td>audi</td>
+                                    <td>2.0</td>
+                                    <td>30</td>
+                                    <td>compact</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>audi</td>
+                                    <td>2.8</td>
+                                    <td>26</td>
+                                    <td>compact</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>audi</td>
+                                    <td>2.8</td>
+                                    <td>26</td>
+                                    <td>compact</td>
+                                    <td>4</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                    <pre><code>library(ggplot2)
+
+head(mpg[, c("manufacturer", "displ", "hwy", "class", "drv")])</code></pre>
                 </section>
 
                 <section class="callout bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl px-6 py-6 space-y-4">
                     <h2 class="text-2xl font-bold text-gray-900">The simple idea</h2>
                     <p>
-                        <code>aes()</code> takes columns from your dataset and gives them new jobs in the plot.
-                        I like to think of it as making a small "visual dataset" that the geom can use later.
+                        <code>aes()</code> takes columns from your dataset and gives them new jobs in the plot. I like to think of it as making a small visual dataset that the geom can use later.
                     </p>
                 </section>
 
                 <section class="space-y-5">
                     <h2 class="text-3xl font-bold text-gray-900">Example 1: map two columns to <code>x</code> and <code>y</code></h2>
                     <p>Suppose we write:</p>
-                    <pre><code>ggplot(farm_data, aes(x = income, y = yield))</code></pre>
+                    <pre><code>ggplot(mpg, aes(x = displ, y = hwy))</code></pre>
                     <p>
-                        Before we even add a geom, <code>aes()</code> is already doing something useful.
-                        It is matching:
+                        Before we even add a geom, <code>aes()</code> is already doing something useful. It is matching:
                     </p>
                     <ul class="list-disc list-inside space-y-3">
-                        <li><code>income</code> to <code>x</code></li>
-                        <li><code>yield</code> to <code>y</code></li>
+                        <li><code>displ</code> to <code>x</code></li>
+                        <li><code>hwy</code> to <code>y</code></li>
                     </ul>
-                    <p>So the visual dataset now looks like this:</p>
+                    <p>So the visual dataset begins like this:</p>
                     <div class="overflow-x-auto border border-purple-100 rounded-2xl">
                         <table class="data-table">
                             <thead>
@@ -201,16 +221,28 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>40</td>
-                                    <td>3.2</td>
+                                    <td>1.8</td>
+                                    <td>29</td>
                                 </tr>
                                 <tr>
-                                    <td>55</td>
-                                    <td>4.1</td>
+                                    <td>1.8</td>
+                                    <td>29</td>
                                 </tr>
                                 <tr>
-                                    <td>70</td>
-                                    <td>4.8</td>
+                                    <td>2.0</td>
+                                    <td>31</td>
+                                </tr>
+                                <tr>
+                                    <td>2.0</td>
+                                    <td>30</td>
+                                </tr>
+                                <tr>
+                                    <td>2.8</td>
+                                    <td>26</td>
+                                </tr>
+                                <tr>
+                                    <td>2.8</td>
+                                    <td>26</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -219,94 +251,219 @@
                         Nothing has been drawn yet. We just have a new table that says where each row should go on the plot.
                     </p>
                     <p>Then when we add a geom:</p>
-                    <pre><code>ggplot(farm_data, aes(x = income, y = yield)) +
+                    <pre><code>ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point()</code></pre>
+                    <figure class="overflow-hidden rounded-[1.5rem] border border-purple-100 bg-[#fffdf8]">
+                        <img src="assets/aes-example-xy.png" alt="Scatterplot of engine displacement on x and highway miles per gallon on y." class="w-full h-auto">
+                    </figure>
                     <p>
                         <code>geom_point()</code> uses that visual dataset and draws one point for each row.
                     </p>
                 </section>
 
                 <section class="space-y-5">
-                    <h2 class="text-3xl font-bold text-gray-900">Example 2: map one column to position and another to color</h2>
+                    <h2 class="text-3xl font-bold text-gray-900">Example 2: add a transformation</h2>
                     <p>Now suppose we write:</p>
-                    <pre><code>ggplot(farm_data, aes(x = income, color = region))</code></pre>
-                    <p>This time, <code>aes()</code> matches:</p>
-                    <ul class="list-disc list-inside space-y-3">
-                        <li><code>income</code> to <code>x</code></li>
-                        <li><code>region</code> to <code>color</code></li>
-                    </ul>
-                    <p>So the visual dataset now looks like this:</p>
+                    <pre><code>ggplot(mpg, aes(x = log(displ), y = hwy))</code></pre>
+                    <p>
+                        This still works because <code>log(displ)</code> returns one value for each row of the dataset.
+                    </p>
+                    <p>So the visual dataset still has the same number of rows. It begins like this:</p>
                     <div class="overflow-x-auto border border-purple-100 rounded-2xl">
                         <table class="data-table">
                             <thead>
                                 <tr>
                                     <th>x</th>
+                                    <th>y</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>0.588</td>
+                                    <td>29</td>
+                                </tr>
+                                <tr>
+                                    <td>0.588</td>
+                                    <td>29</td>
+                                </tr>
+                                <tr>
+                                    <td>0.693</td>
+                                    <td>31</td>
+                                </tr>
+                                <tr>
+                                    <td>0.693</td>
+                                    <td>30</td>
+                                </tr>
+                                <tr>
+                                    <td>1.030</td>
+                                    <td>26</td>
+                                </tr>
+                                <tr>
+                                    <td>1.030</td>
+                                    <td>26</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>Then we can draw the plot:</p>
+                    <pre><code>ggplot(mpg, aes(x = log(displ), y = hwy)) +
+  geom_point()</code></pre>
+                    <figure class="overflow-hidden rounded-[1.5rem] border border-purple-100 bg-[#fffdf8]">
+                        <img src="assets/aes-example-log.png" alt="Scatterplot using log of engine displacement on x and highway miles per gallon on y." class="w-full h-auto">
+                    </figure>
+                    <p>
+                        This example helps explain the second takeaway: transformed variables are fine inside <code>aes()</code> as long as they still give one value per row.
+                    </p>
+                </section>
+
+                <section class="space-y-5">
+                    <h2 class="text-3xl font-bold text-gray-900">Example 3: create a new visual variable inside <code>aes()</code></h2>
+                    <p>
+                        This is closer to one of the examples from my notes, where the mapping uses a logical statement.
+                    </p>
+                    <pre><code>ggplot(mpg, aes(x = displ, y = hwy, color = hwy &gt; 30))</code></pre>
+                    <p>Now <code>aes()</code> is matching:</p>
+                    <ul class="list-disc list-inside space-y-3">
+                        <li><code>displ</code> to <code>x</code></li>
+                        <li><code>hwy</code> to <code>y</code></li>
+                        <li><code>hwy &gt; 30</code> to <code>color</code></li>
+                    </ul>
+                    <p>So the visual dataset begins like this:</p>
+                    <div class="overflow-x-auto border border-purple-100 rounded-2xl">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>x</th>
+                                    <th>y</th>
                                     <th>color</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>40</td>
-                                    <td>East</td>
+                                    <td>1.8</td>
+                                    <td>29</td>
+                                    <td>FALSE</td>
                                 </tr>
                                 <tr>
-                                    <td>55</td>
-                                    <td>West</td>
+                                    <td>1.8</td>
+                                    <td>29</td>
+                                    <td>FALSE</td>
                                 </tr>
                                 <tr>
-                                    <td>70</td>
-                                    <td>East</td>
+                                    <td>2.0</td>
+                                    <td>31</td>
+                                    <td>TRUE</td>
+                                </tr>
+                                <tr>
+                                    <td>2.0</td>
+                                    <td>30</td>
+                                    <td>FALSE</td>
+                                </tr>
+                                <tr>
+                                    <td>2.8</td>
+                                    <td>26</td>
+                                    <td>FALSE</td>
+                                </tr>
+                                <tr>
+                                    <td>2.8</td>
+                                    <td>26</td>
+                                    <td>FALSE</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <p>
-                        Again, nothing has been drawn yet. We only know that rows from the East should get one color and rows from the West should get another.
+                        The new <code>color</code> column is made of <code>TRUE</code> and <code>FALSE</code>, but it still has one value per row.
                     </p>
                     <p>Then we can draw it with a geom:</p>
-                    <pre><code>ggplot(farm_data, aes(x = income, color = region)) +
-  geom_density()</code></pre>
+                    <pre><code>ggplot(mpg, aes(x = displ, y = hwy, color = hwy &gt; 30)) +
+  geom_point()</code></pre>
+                    <figure class="overflow-hidden rounded-[1.5rem] border border-purple-100 bg-[#fffdf8]">
+                        <img src="assets/aes-example-flag.png" alt="Scatterplot of engine displacement and highway mpg, colored by whether highway mpg is greater than 30." class="w-full h-auto">
+                    </figure>
                 </section>
 
                 <section class="space-y-5">
-                    <h2 class="text-3xl font-bold text-gray-900">One important difference: mapping is not the same as setting</h2>
-                    <p>These two lines look similar, but they do different things:</p>
-                    <pre><code>aes(color = region)
-color = "steelblue"</code></pre>
+                    <h2 class="text-3xl font-bold text-gray-900">Example 4: another mapping like the ones in my screenshot</h2>
                     <p>
-                        The first one uses data. The second one uses a fixed style.
+                        Here is one more example using another argument inside <code>aes()</code>:
                     </p>
-                    <ul class="list-disc list-inside space-y-3">
-                        <li><code>aes(color = region)</code> means color depends on the dataset</li>
-                        <li><code>color = "steelblue"</code> means every mark gets the same color</li>
-                    </ul>
+                    <pre><code>ggplot(mpg, aes(x = displ, y = hwy, shape = drv))</code></pre>
+                    <p>
+                        Here <code>drv</code> is being mapped to <code>shape</code>, just like another dataset could map <code>region</code> to shape.
+                    </p>
+                    <div class="overflow-x-auto border border-purple-100 rounded-2xl">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>x</th>
+                                    <th>y</th>
+                                    <th>shape</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1.8</td>
+                                    <td>29</td>
+                                    <td>f</td>
+                                </tr>
+                                <tr>
+                                    <td>1.8</td>
+                                    <td>29</td>
+                                    <td>f</td>
+                                </tr>
+                                <tr>
+                                    <td>2.0</td>
+                                    <td>31</td>
+                                    <td>f</td>
+                                </tr>
+                                <tr>
+                                    <td>2.0</td>
+                                    <td>30</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>2.8</td>
+                                    <td>26</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>2.8</td>
+                                    <td>26</td>
+                                    <td>4</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>And then the geom uses that mapping:</p>
+                    <pre><code>ggplot(mpg, aes(x = displ, y = hwy, shape = drv)) +
+  geom_point()</code></pre>
+                    <figure class="overflow-hidden rounded-[1.5rem] border border-purple-100 bg-[#fffdf8]">
+                        <img src="assets/aes-example-shape.png" alt="Scatterplot of engine displacement and highway mpg, using shape for drive type." class="w-full h-auto">
+                    </figure>
                 </section>
 
                 <section class="space-y-5">
-                    <h2 class="text-3xl font-bold text-gray-900">What I want students to take away</h2>
+                    <h2 class="text-3xl font-bold text-gray-900">Conclusion</h2>
                     <p>
-                        When I read <code>ggplot2</code> code now, I ask two simple questions:
+                        There are many other arguments that can go inside <code>aes()</code>, but the basic idea is the same.
                     </p>
                     <ul class="list-disc list-inside space-y-3">
-                        <li>Which dataset am I starting with?</li>
-                        <li>What new jobs is <code>aes()</code> giving to those columns?</li>
+                        <li>Start with a dataset.</li>
+                        <li>Map one or more columns to new visual roles.</li>
+                        <li>Let the geom draw using that mapped visual dataset.</li>
                     </ul>
                     <p>
-                        After that, the geom is much easier to understand.
-                    </p>
-                    <p>
-                        There are many other arguments that can go inside <code>aes()</code>, but the idea is the same:
-                        <span class="font-semibold">take a column from your data and match it to a part of the plot.</span>
+                        Whether the mapping is <code>x</code>, <code>y</code>, <code>color</code>, <code>shape</code>, or something else, the core idea stays the same: take a column from your data, or create one through a transformation, and match it to a part of the plot.
                     </p>
                 </section>
             </div>
         </article>
 
         <section class="mt-10 bg-white/80 backdrop-blur rounded-[2rem] p-8 border border-purple-100">
-            <h2 class="text-2xl font-bold text-gray-900">A note for my own workflow</h2>
+            <h2 class="text-2xl font-bold text-gray-900">Source File</h2>
             <p class="mt-4 text-lg text-gray-700 leading-8">
-                I also think this kind of post works well as a Quarto file because I can write the explanation and keep the code examples close together.
-                If I keep building posts like this, it may make sense to draft them in <code>.qmd</code> first and then publish the rendered version to the website.
+                I also kept a Quarto source file for this post so it is easier to revise the examples and regenerate the article later.
             </p>
             <div class="mt-6">
                 <a href="../index.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl gradient-bg text-white font-semibold">
