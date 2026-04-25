@@ -188,3 +188,7 @@ There are many other arguments that can go inside `aes()`, but the basic idea is
 ## Reference
 
 Wickham, Hadley. 2016. *ggplot2: Elegant Graphics for Data Analysis*. 2nd ed. Use R! Cham: Springer. https://doi.org/10.1007/978-3-319-24277-4
+
+## Note
+
+Codex was used to help refine the examples, shape the visual-dataset explanations, and format the post for the website.
