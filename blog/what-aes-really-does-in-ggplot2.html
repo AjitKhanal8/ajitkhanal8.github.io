@@ -110,11 +110,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Understanding these two things helps build a mental model before making a plot, and it also means you do not have to memorize all the arguments that <code>aes()</code> can take.</p>
 <p>Everything before this point is the big idea. Now let us work through it with a real dataset that comes with <code>ggplot2</code>.</p>
-<p>Load the necessary libraries. We will use <code>ggplot2</code> for plotting, <code>dplyr</code> for making the visual datasets, and <code>knitr</code> for showing the tables.</p>
+<p>Load the necessary library. We will use <code>ggplot2</code> for plotting.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="start-with-one-built-in-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="start-with-one-built-in-dataset">Start with one built-in dataset</h2>
@@ -126,70 +124,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>class</code>: the type of car</li>
 <li><code>drv</code>: whether the car is front-wheel, rear-wheel, or four-wheel drive</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mpg_preview <span class="ot">&lt;-</span> mpg <span class="sc">|&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(manufacturer, displ, hwy, class, drv) <span class="sc">|&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(mpg_preview)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: left;">manufacturer</th>
+<th>manufacturer</th>
 <th style="text-align: right;">displ</th>
 <th style="text-align: right;">hwy</th>
-<th style="text-align: left;">class</th>
-<th style="text-align: left;">drv</th>
+<th>class</th>
+<th>drv</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">audi</td>
+<td>audi</td>
 <td style="text-align: right;">1.8</td>
 <td style="text-align: right;">29</td>
-<td style="text-align: left;">compact</td>
-<td style="text-align: left;">f</td>
+<td>compact</td>
+<td>f</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">audi</td>
+<td>audi</td>
 <td style="text-align: right;">1.8</td>
 <td style="text-align: right;">29</td>
-<td style="text-align: left;">compact</td>
-<td style="text-align: left;">f</td>
+<td>compact</td>
+<td>f</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">audi</td>
+<td>audi</td>
 <td style="text-align: right;">2.0</td>
 <td style="text-align: right;">31</td>
-<td style="text-align: left;">compact</td>
-<td style="text-align: left;">f</td>
+<td>compact</td>
+<td>f</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">audi</td>
+<td>audi</td>
 <td style="text-align: right;">2.0</td>
 <td style="text-align: right;">30</td>
-<td style="text-align: left;">compact</td>
-<td style="text-align: left;">f</td>
+<td>compact</td>
+<td>4</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">audi</td>
+<td>audi</td>
 <td style="text-align: right;">2.8</td>
 <td style="text-align: right;">26</td>
-<td style="text-align: left;">compact</td>
-<td style="text-align: left;">f</td>
+<td>compact</td>
+<td>4</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">audi</td>
+<td>audi</td>
 <td style="text-align: right;">2.8</td>
 <td style="text-align: right;">26</td>
-<td style="text-align: left;">compact</td>
-<td style="text-align: left;">f</td>
+<td>compact</td>
+<td>4</td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
 <p>This is only a preview of the first 6 rows. The full dataset has 234 rows.</p>
 </section>
 <section id="the-simple-idea" class="level2">
@@ -200,7 +189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="example-1-map-two-columns-to-x-and-y">Example 1: map two columns to <code>x</code> and <code>y</code></h2>
 <p>Suppose we write:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Before we even add a geom, <code>aes()</code> is already doing something useful. It is matching:</p>
 <ul>
@@ -208,15 +197,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>hwy</code> to <code>y</code></li>
 </ul>
 <p>So the visual dataset begins like this:</p>
-<p>Please do not worry about making this table. For this blog, just focus on understanding what <code>aes()</code> does.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>visual_xy <span class="ot">&lt;-</span> mpg <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy) <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(visual_xy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<p>Please do not worry about how to make this table. For this blog, just focus on understanding what <code>aes()</code> does.</p>
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: right;">x</th>
@@ -250,17 +232,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-</div>
-</div>
 <p>Nothing has been drawn yet. We just have a new table that says where each row should go on the plot.</p>
 <p>Then when we add a geom:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="what-aes-really-does-in-ggplot2_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="what-aes-really-does-in-ggplot2_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -270,18 +250,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="example-2-add-a-transformation">Example 2: add a transformation</h2>
 <p>Now suppose we transform <code>displ</code> inside <code>aes()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(displ), <span class="at">y =</span> hwy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(displ), <span class="at">y =</span> hwy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This still works because <code>log(displ)</code> returns one value for each row of the dataset.</p>
 <p>So the visual dataset still has the same number of rows. It just begins like this:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>visual_log <span class="ot">&lt;-</span> mpg <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">x =</span> <span class="fu">log</span>(displ), <span class="at">y =</span> hwy) <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(visual_log, <span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: right;">x</th>
@@ -315,16 +288,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-</div>
-</div>
 <p>Then we can draw the plot:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(displ), <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(displ), <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="what-aes-really-does-in-ggplot2_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="what-aes-really-does-in-ggplot2_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -336,7 +307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In this example, the mapping uses a logical statement.</p>
 <p>Suppose we write:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> hwy <span class="sc">&gt;</span> <span class="dv">30</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> hwy <span class="sc">&gt;</span> <span class="dv">30</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now <code>aes()</code> is matching:</p>
 <ul>
@@ -345,69 +316,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>hwy &gt; 30</code> to <code>color</code></li>
 </ul>
 <p>So the visual dataset begins like this:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>visual_flag <span class="ot">&lt;-</span> mpg <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> displ,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> hwy,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> hwy <span class="sc">&gt;</span> <span class="dv">30</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(visual_flag)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: right;">x</th>
 <th style="text-align: right;">y</th>
-<th style="text-align: left;">color</th>
+<th>color</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1.8</td>
 <td style="text-align: right;">29</td>
-<td style="text-align: left;">FALSE</td>
+<td>FALSE</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1.8</td>
 <td style="text-align: right;">29</td>
-<td style="text-align: left;">FALSE</td>
+<td>FALSE</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">2.0</td>
 <td style="text-align: right;">31</td>
-<td style="text-align: left;">TRUE</td>
+<td>TRUE</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2.0</td>
 <td style="text-align: right;">30</td>
-<td style="text-align: left;">FALSE</td>
+<td>FALSE</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">2.8</td>
 <td style="text-align: right;">26</td>
-<td style="text-align: left;">FALSE</td>
+<td>FALSE</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2.8</td>
 <td style="text-align: right;">26</td>
-<td style="text-align: left;">FALSE</td>
+<td>FALSE</td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
 <p>The new <code>color</code> column is made of <code>TRUE</code> and <code>FALSE</code>, but it still has one value per row.</p>
 <p>Then we can draw the plot:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> hwy <span class="sc">&gt;</span> <span class="dv">30</span>)) <span class="sc">+</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> hwy <span class="sc">&gt;</span> <span class="dv">30</span>)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="what-aes-really-does-in-ggplot2_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="what-aes-really-does-in-ggplot2_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -417,72 +375,59 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="example-4-bonus-example">Example 4: Bonus example</h2>
 <p>Here is one more example using another argument inside <code>aes()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">shape =</span> drv))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">shape =</span> drv))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here <code>drv</code> is being mapped to <code>shape</code>, just like <code>region</code> could be mapped to shape in a different dataset.</p>
 <p>So the visual dataset begins like this:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>visual_shape <span class="ot">&lt;-</span> mpg <span class="sc">|&gt;</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> displ,</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> hwy,</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> drv</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(visual_shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: right;">x</th>
 <th style="text-align: right;">y</th>
-<th style="text-align: left;">shape</th>
+<th>shape</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1.8</td>
 <td style="text-align: right;">29</td>
-<td style="text-align: left;">f</td>
+<td>f</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1.8</td>
 <td style="text-align: right;">29</td>
-<td style="text-align: left;">f</td>
+<td>f</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">2.0</td>
 <td style="text-align: right;">31</td>
-<td style="text-align: left;">f</td>
+<td>f</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2.0</td>
 <td style="text-align: right;">30</td>
-<td style="text-align: left;">f</td>
+<td>4</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">2.8</td>
 <td style="text-align: right;">26</td>
-<td style="text-align: left;">f</td>
+<td>4</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2.8</td>
 <td style="text-align: right;">26</td>
-<td style="text-align: left;">f</td>
+<td>4</td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
 <p>And then the geom uses that mapping:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">shape =</span> drv)) <span class="sc">+</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">alpha =</span> <span class="fl">0.75</span>, <span class="at">size =</span> <span class="fl">2.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">shape =</span> drv)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">alpha =</span> <span class="fl">0.75</span>, <span class="at">size =</span> <span class="fl">2.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="what-aes-really-does-in-ggplot2_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="what-aes-really-does-in-ggplot2_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -492,6 +437,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>aes()</code> is a function that maps variables in your dataset, or variables you create after transformation, to a <strong>new dataset: a visual dataset</strong>, which <code>geoms</code> then use to construct the plot.</li>
 <li>All the variables that you feed into <code>aes()</code> must have the same number of rows.</li>
 </ul>
+</section>
+<section id="reference" class="level2">
+<h2 class="anchored" data-anchor-id="reference">Reference</h2>
+<p>Wickham, Hadley. 2016. <em>ggplot2: Elegant Graphics for Data Analysis</em>. 2nd ed.&nbsp;Use R! Cham: Springer. https://doi.org/10.1007/978-3-319-24277-4</p>
 </section>
 
 </main>
