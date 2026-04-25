@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What aes() Really Does in ggplot2 | Ajit Khanal</title>
+    <meta name="description" content="A beginner-friendly explanation of ggplot2::aes(), why mapping matters, and how understanding it helps you validate visualizations even when AI generates plots quickly.">
+    <meta property="og:title" content="What aes() Really Does in ggplot2">
+    <meta property="og:description" content="A beginner-friendly explanation of ggplot2::aes(), why mapping matters, and how understanding it helps you validate visualizations even when AI generates plots quickly.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://ajitkhanal8.github.io/blog/what-aes-really-does-in-ggplot2.html">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .article-card {
+            box-shadow: 0 24px 60px rgba(94, 72, 140, 0.12);
+        }
+
+        .prose-body p {
+            line-height: 1.9;
+        }
+
+        .prose-body code {
+            background: #f3f4f6;
+            color: #5b21b6;
+            padding: 0.15rem 0.4rem;
+            border-radius: 0.45rem;
+            font-size: 0.95em;
+        }
+
+        .prose-body pre {
+            background: #111827;
+            color: #f9fafb;
+            padding: 1.25rem;
+            border-radius: 1rem;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+
+        .prose-body pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        .callout {
+            border-left: 6px solid #667eea;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 via-purple-50 to-blue-50 min-h-screen text-gray-800">
+    <header class="gradient-bg text-white">
+        <div class="max-w-5xl mx-auto px-6 py-8">
+            <a href="../index.html" class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-white/90 hover:text-white">
+                <span>&larr;</span>
+                Back to site
+            </a>
+        </div>
+        <div class="max-w-5xl mx-auto px-6 pb-16">
+            <p class="text-sm font-semibold uppercase tracking-[0.25em] text-white/80">Blog</p>
+            <h1 class="mt-4 text-4xl md:text-6xl font-extrabold leading-tight">What <span class="bg-white/15 px-3 py-1 rounded-xl">aes()</span> Really Does in ggplot2</h1>
+            <p class="mt-6 max-w-3xl text-lg md:text-xl text-white/90 leading-8">
+                A beginner-friendly mental model for understanding how <span class="font-semibold">ggplot2</span> maps data to visual roles, and why that matters if you want to validate charts instead of only generating them.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-3 text-sm font-semibold">
+                <span class="px-4 py-2 rounded-full bg-white/15">Published April 25, 2026</span>
+                <span class="px-4 py-2 rounded-full bg-white/15">4 min read</span>
+                <span class="px-4 py-2 rounded-full bg-white/15">R • ggplot2 • Data Visualization</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 py-12">
+        <article class="bg-white rounded-[2rem] p-8 md:p-12 article-card">
+            <figure class="overflow-hidden rounded-[1.5rem] border border-purple-100 bg-[#fffdf8]">
+                <img src="assets/ggplot2-aes-visual.svg" alt="Diagram showing data flowing into aes mappings and then into a geom, plus a mapping-versus-setting comparison." class="w-full h-auto">
+            </figure>
+            <p class="mt-4 text-sm text-gray-500">Mental model: <code>aes()</code> creates visual instructions; geoms use them to draw.</p>
+
+            <div class="prose-body mt-10 space-y-8 text-lg">
+                <p>
+                    If I am honest, one reason I wanted to learn <code>ggplot2</code> this week was that AI had started doing too much of my plotting for me.
+                    It was fast. It was convenient. But it also left me with a quiet question: do I actually understand what I am looking at well enough to trust it?
+                </p>
+
+                <p>
+                    That question pushed me back to the basics. And one idea in <code>ggplot2</code> finally clicked for me:
+                    <span class="font-semibold text-purple-700"> <code>aes()</code> does not draw anything. It maps data to visual roles.</span>
+                </p>
+
+                <section class="space-y-5">
+                    <h2 class="text-3xl font-bold text-gray-900">The 3-part idea behind ggplot2</h2>
+                    <p>
+                        At a high level, every <code>ggplot2</code> chart has three core pieces:
+                    </p>
+                    <ul class="list-disc list-inside space-y-3">
+                        <li><span class="font-semibold">Data</span>: the table you are plotting</li>
+                        <li><span class="font-semibold">Mapping</span>: which variables should control which visual roles</li>
+                        <li><span class="font-semibold">Geom</span>: the thing that actually gets drawn, like points, bars, or lines</li>
+                    </ul>
+                    <p>
+                        That middle layer is where <code>aes()</code> lives. In plain English, aesthetics are the visual channels a plot can use: position, color, size, shape, fill, grouping, and more.
+                        The job of <code>aes()</code> is to connect variables in your data to those visual channels.
+                    </p>
+                </section>
+
+                <section class="callout bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl px-6 py-6 space-y-4">
+                    <h2 class="text-2xl font-bold text-gray-900">The mental model that helped me</h2>
+                    <p>
+                        <code>aes()</code> creates a visual instruction table from your data, and geoms read those instructions to draw the plot.
+                    </p>
+                </section>
+
+                <section class="space-y-5">
+                    <h2 class="text-3xl font-bold text-gray-900">What <code>aes()</code> is doing</h2>
+                    <p>When I write this:</p>
+                    <pre><code>ggplot(df, aes(x = income, y = crop_yield)) +
+  geom_point()</code></pre>
+                    <p>I am not telling <code>ggplot2</code> to draw points directly inside <code>aes()</code>. I am saying:</p>
+                    <ul class="list-disc list-inside space-y-3">
+                        <li>Put <code>income</code> on the x-axis</li>
+                        <li>Put <code>crop_yield</code> on the y-axis</li>
+                        <li>Then let <code>geom_point()</code> use those mapped roles to draw the chart</li>
+                    </ul>
+                </section>
+
+                <section class="space-y-5">
+                    <h2 class="text-3xl font-bold text-gray-900">The 2 rules I want to remember</h2>
+
+                    <div class="bg-white border border-purple-100 rounded-2xl p-6 space-y-3">
+                        <h3 class="text-2xl font-semibold text-purple-700">1. <code>aes()</code> does not draw anything</h3>
+                        <p>
+                            <code>aes()</code> is not a plotting command. It is a mapping command.
+                            It tells <code>ggplot2</code> how the variables in a dataset should behave visually.
+                            The geom is what actually draws.
+                        </p>
+                    </div>
+
+                    <div class="bg-white border border-blue-100 rounded-2xl p-6 space-y-3">
+                        <h3 class="text-2xl font-semibold text-blue-700">2. Anything inside <code>aes()</code> should usually evaluate to one value per row</h3>
+                        <p>
+                            If a dataset has 100 rows, then an expression inside <code>aes()</code> should usually produce 100 values, one for each row.
+                            That is how <code>ggplot2</code> knows what x-position, y-position, color, or size each observation should get.
+                        </p>
+                        <pre><code>aes(x = income)
+aes(size = population)
+aes(x = log(income))
+aes(fill = exports &gt; 0)</code></pre>
+                    </div>
+                </section>
+
+                <section class="space-y-5">
+                    <h2 class="text-3xl font-bold text-gray-900">6 examples of mapping data to visual roles</h2>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
+                            <p class="font-semibold text-gray-900"><code>aes(x = income)</code></p>
+                            <p class="mt-2">Maps <code>income</code> to horizontal position.</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
+                            <p class="font-semibold text-gray-900"><code>aes(y = crop_yield)</code></p>
+                            <p class="mt-2">Maps <code>crop_yield</code> to vertical position.</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
+                            <p class="font-semibold text-gray-900"><code>aes(fill = direction)</code></p>
+                            <p class="mt-2">Maps categories in <code>direction</code> to fill color.</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
+                            <p class="font-semibold text-gray-900"><code>aes(size = population)</code></p>
+                            <p class="mt-2">Maps <code>population</code> to point size.</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
+                            <p class="font-semibold text-gray-900"><code>aes(shape = region)</code></p>
+                            <p class="mt-2">Maps <code>region</code> to symbol shape.</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
+                            <p class="font-semibold text-gray-900"><code>aes(x = log(income))</code></p>
+                            <p class="mt-2">Maps a transformed variable to the x-axis instead of the raw one.</p>
+                        </div>
+                    </div>
+                    <p>
+                        The important point is not memorizing every possible argument. It is learning to ask one simple question:
+                        <span class="font-semibold">what variable is being mapped to what visual role?</span>
+                    </p>
+                </section>
+
+                <section class="space-y-5">
+                    <h2 class="text-3xl font-bold text-gray-900">The clarification beginners need early: mapping is not the same as setting</h2>
+                    <p>These two lines are not doing the same thing:</p>
+                    <pre><code>aes(color = region)
+color = "steelblue"</code></pre>
+                    <p>
+                        The first one maps a variable to color, so the color changes with the data.
+                        The second sets a fixed style, so every point gets the same color.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-6 border border-purple-100">
+                            <p class="font-semibold text-purple-700">Maps data</p>
+                            <pre><code>ggplot(df, aes(x = income, y = crop_yield,
+               color = region)) +
+  geom_point()</code></pre>
+                        </div>
+                        <div class="bg-gradient-to-br from-gray-50 to-slate-100 rounded-2xl p-6 border border-gray-200">
+                            <p class="font-semibold text-gray-700">Sets a style</p>
+                            <pre><code>ggplot(df, aes(x = income, y = crop_yield)) +
+  geom_point(color = "steelblue")</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="space-y-5">
+                    <h2 class="text-3xl font-bold text-gray-900">Why this matters even more in the age of AI</h2>
+                    <p>
+                        AI can help us make charts faster. I use it too. But speed is not the same thing as understanding.
+                        If I cannot look at plotting code and tell what is being mapped, what is being set, and what the geom is doing, then I am outsourcing too much judgment.
+                    </p>
+                    <p>Visualization still needs judgment. We still need to validate whether:</p>
+                    <ul class="list-disc list-inside space-y-3">
+                        <li>the chart matches the question we are asking</li>
+                        <li>the variables are mapped in sensible ways</li>
+                        <li>a transformation changes the meaning of the plot</li>
+                        <li>a visual distinction reflects real structure in the data</li>
+                    </ul>
+                </section>
+
+                <section class="space-y-5">
+                    <h2 class="text-3xl font-bold text-gray-900">The takeaway I am keeping</h2>
+                    <p>I do not need to memorize every <code>ggplot2</code> argument to start making sense of the package.</p>
+                    <ul class="list-disc list-inside space-y-3">
+                        <li><code>data</code> gives the observations</li>
+                        <li><code>aes()</code> maps variables to visual roles</li>
+                        <li><code>geom</code> draws the result</li>
+                    </ul>
+                    <p>
+                        If you are also learning <code>ggplot2</code>, this is where I would start: not with every possible chart, but with the question,
+                        <span class="font-semibold">what is this code mapping, and what is it drawing?</span>
+                    </p>
+                </section>
+            </div>
+        </article>
+
+        <section class="mt-10 bg-white/80 backdrop-blur rounded-[2rem] p-8 border border-purple-100">
+            <h2 class="text-2xl font-bold text-gray-900">What comes next</h2>
+            <p class="mt-4 text-lg text-gray-700 leading-8">
+                If this was helpful, the next concept worth learning is the difference between global mappings inside <code>ggplot()</code> and local mappings inside individual geoms.
+                That is another place where the grammar of graphics starts to feel much less overwhelming.
+            </p>
+            <div class="mt-6">
+                <a href="../index.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl gradient-bg text-white font-semibold">
+                    Return to ajitkhanal8.github.io
+                </a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

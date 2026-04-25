@@ -421,11 +421,48 @@
         <div id="blog-section" class="content-section hidden-section">
             <div class="space-y-10 max-w-5xl mx-auto">
                 <h2 class="text-4xl font-bold text-gray-900 section-title">Blog</h2>
-                <div class="bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 p-20 rounded-3xl text-center shadow-2xl">
-                    <div class="space-y-4">
-                        <div class="text-6xl">✍️</div>
-                        <p class="text-3xl font-bold gradient-text">Stay Tuned for Blogs</p>
-                        <p class="text-lg text-gray-600">Coming soon: Insights on agricultural economics, trade policy, and research methodology</p>
+                <div class="bg-white rounded-3xl shadow-2xl border border-purple-100 overflow-hidden card">
+                    <div class="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 px-10 py-12 text-white">
+                        <p class="text-sm font-semibold uppercase tracking-[0.25em] opacity-90">Featured Post</p>
+                        <h3 class="mt-4 text-3xl md:text-4xl font-bold leading-tight">What <span class="bg-white/15 px-3 py-1 rounded-xl">aes()</span> Really Does in ggplot2</h3>
+                        <p class="mt-4 text-lg text-purple-50 max-w-3xl">
+                            A beginner-friendly explanation of how <span class="font-semibold">ggplot2</span> maps data to visual roles, and why that matters if you want to validate charts instead of just generating them.
+                        </p>
+                    </div>
+                    <div class="px-10 py-10 space-y-6">
+                        <div class="flex flex-wrap gap-3 text-sm font-semibold">
+                            <span class="px-4 py-2 rounded-full bg-purple-100 text-purple-700">R</span>
+                            <span class="px-4 py-2 rounded-full bg-blue-100 text-blue-700">ggplot2</span>
+                            <span class="px-4 py-2 rounded-full bg-indigo-100 text-indigo-700">Data Visualization</span>
+                        </div>
+                        <p class="text-lg text-gray-700 leading-8">
+                            I wrote this post after realizing AI was helping me make plots faster than I actually understood them.
+                            The idea that helped me slow down was simple: <span class="font-semibold text-purple-700">aes() does not draw anything. It maps data to visual roles, and geoms use those instructions to draw the chart.</span>
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-gradient-to-br from-gray-50 to-purple-50 rounded-2xl p-6 border border-gray-100">
+                                <p class="text-sm font-semibold uppercase tracking-wide text-purple-700">What You Will Learn</p>
+                                <ul class="mt-4 space-y-3 text-gray-700 leading-7 list-disc list-inside">
+                                    <li>How <span class="font-semibold">data</span>, <span class="font-semibold">mapping</span>, and <span class="font-semibold">geom</span> work together</li>
+                                    <li>Why <span class="font-semibold">aes()</span> is the mapping layer</li>
+                                    <li>The difference between mapping a variable and setting a fixed style</li>
+                                </ul>
+                            </div>
+                            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
+                                <p class="text-sm font-semibold uppercase tracking-wide text-blue-700">Read Time</p>
+                                <p class="mt-4 text-gray-700 leading-7">
+                                    About 4 minutes. Written for beginners in R who want a clearer mental model before memorizing more syntax.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="pt-2">
+                            <a href="blog/what-aes-really-does-in-ggplot2.html" class="inline-flex items-center gap-3 px-8 py-4 gradient-bg text-white rounded-xl hover:shadow-2xl transition-all font-bold text-lg uppercase tracking-wide link-button">
+                                Read the Post
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
