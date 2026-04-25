@@ -198,37 +198,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>So the visual dataset begins like this:</p>
 <p>Please do not worry about how to make this table. For this blog, just focus on understanding what <code>aes()</code> does.</p>
-<table class="caption-top table">
+<table class="table table-sm table-striped">
 <thead>
-<tr class="header">
-<th style="text-align: right;">x</th>
-<th style="text-align: right;">y</th>
+<tr>
+<th>
+x
+</th>
+<th>
+y
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: right;">1.8</td>
-<td style="text-align: right;">29</td>
+<tr>
+<td>
+1.8
+</td>
+<td>
+29
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">1.8</td>
-<td style="text-align: right;">29</td>
+<tr>
+<td>
+1.8
+</td>
+<td>
+29
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">2.0</td>
-<td style="text-align: right;">31</td>
+<tr>
+<td>
+2.0
+</td>
+<td>
+31
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">2.0</td>
-<td style="text-align: right;">30</td>
+<tr>
+<td>
+2.0
+</td>
+<td>
+30
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">2.8</td>
-<td style="text-align: right;">26</td>
+<tr>
+<td>
+2.8
+</td>
+<td>
+26
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">2.8</td>
-<td style="text-align: right;">26</td>
+<tr>
+<td>
+2.8
+</td>
+<td>
+26
+</td>
 </tr>
 </tbody>
 </table>
@@ -254,37 +282,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>This still works because <code>log(displ)</code> returns one value for each row of the dataset.</p>
 <p>So the visual dataset still has the same number of rows. It just begins like this:</p>
-<table class="caption-top table">
+<table class="table table-sm table-striped">
 <thead>
-<tr class="header">
-<th style="text-align: right;">x</th>
-<th style="text-align: right;">y</th>
+<tr>
+<th>
+x
+</th>
+<th>
+y
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: right;">0.588</td>
-<td style="text-align: right;">29</td>
+<tr>
+<td>
+0.588
+</td>
+<td>
+29
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">0.588</td>
-<td style="text-align: right;">29</td>
+<tr>
+<td>
+0.588
+</td>
+<td>
+29
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">0.693</td>
-<td style="text-align: right;">31</td>
+<tr>
+<td>
+0.693
+</td>
+<td>
+31
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">0.693</td>
-<td style="text-align: right;">30</td>
+<tr>
+<td>
+0.693
+</td>
+<td>
+30
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">1.030</td>
-<td style="text-align: right;">26</td>
+<tr>
+<td>
+1.030
+</td>
+<td>
+26
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">1.030</td>
-<td style="text-align: right;">26</td>
+<tr>
+<td>
+1.030
+</td>
+<td>
+26
+</td>
 </tr>
 </tbody>
 </table>
@@ -316,44 +372,86 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>hwy &gt; 30</code> to <code>color</code></li>
 </ul>
 <p>So the visual dataset begins like this:</p>
-<table class="caption-top table">
+<table class="table table-sm table-striped">
 <thead>
-<tr class="header">
-<th style="text-align: right;">x</th>
-<th style="text-align: right;">y</th>
-<th>color</th>
+<tr>
+<th>
+x
+</th>
+<th>
+y
+</th>
+<th>
+color
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: right;">1.8</td>
-<td style="text-align: right;">29</td>
-<td>FALSE</td>
+<tr>
+<td>
+1.8
+</td>
+<td>
+29
+</td>
+<td>
+FALSE
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">1.8</td>
-<td style="text-align: right;">29</td>
-<td>FALSE</td>
+<tr>
+<td>
+1.8
+</td>
+<td>
+29
+</td>
+<td>
+FALSE
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">2.0</td>
-<td style="text-align: right;">31</td>
-<td>TRUE</td>
+<tr>
+<td>
+2.0
+</td>
+<td>
+31
+</td>
+<td>
+TRUE
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">2.0</td>
-<td style="text-align: right;">30</td>
-<td>FALSE</td>
+<tr>
+<td>
+2.0
+</td>
+<td>
+30
+</td>
+<td>
+FALSE
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">2.8</td>
-<td style="text-align: right;">26</td>
-<td>FALSE</td>
+<tr>
+<td>
+2.8
+</td>
+<td>
+26
+</td>
+<td>
+FALSE
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">2.8</td>
-<td style="text-align: right;">26</td>
-<td>FALSE</td>
+<tr>
+<td>
+2.8
+</td>
+<td>
+26
+</td>
+<td>
+FALSE
+</td>
 </tr>
 </tbody>
 </table>
@@ -379,44 +477,86 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Here <code>drv</code> is being mapped to <code>shape</code>, just like <code>region</code> could be mapped to shape in a different dataset.</p>
 <p>So the visual dataset begins like this:</p>
-<table class="caption-top table">
+<table class="table table-sm table-striped">
 <thead>
-<tr class="header">
-<th style="text-align: right;">x</th>
-<th style="text-align: right;">y</th>
-<th>shape</th>
+<tr>
+<th>
+x
+</th>
+<th>
+y
+</th>
+<th>
+shape
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: right;">1.8</td>
-<td style="text-align: right;">29</td>
-<td>f</td>
+<tr>
+<td>
+1.8
+</td>
+<td>
+29
+</td>
+<td>
+f
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">1.8</td>
-<td style="text-align: right;">29</td>
-<td>f</td>
+<tr>
+<td>
+1.8
+</td>
+<td>
+29
+</td>
+<td>
+f
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">2.0</td>
-<td style="text-align: right;">31</td>
-<td>f</td>
+<tr>
+<td>
+2.0
+</td>
+<td>
+31
+</td>
+<td>
+f
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">2.0</td>
-<td style="text-align: right;">30</td>
-<td>4</td>
+<tr>
+<td>
+2.0
+</td>
+<td>
+30
+</td>
+<td>
+4
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">2.8</td>
-<td style="text-align: right;">26</td>
-<td>4</td>
+<tr>
+<td>
+2.8
+</td>
+<td>
+26
+</td>
+<td>
+4
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: right;">2.8</td>
-<td style="text-align: right;">26</td>
-<td>4</td>
+<tr>
+<td>
+2.8
+</td>
+<td>
+26
+</td>
+<td>
+4
+</td>
 </tr>
 </tbody>
 </table>

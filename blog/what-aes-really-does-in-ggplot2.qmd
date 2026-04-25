@@ -68,14 +68,22 @@ So the visual dataset begins like this:
 
 Please do not worry about how to make this table. For this blog, just focus on understanding what `aes()` does.
 
-| x   | y  |
-|----:|---:|
-| 1.8 | 29 |
-| 1.8 | 29 |
-| 2.0 | 31 |
-| 2.0 | 30 |
-| 2.8 | 26 |
-| 2.8 | 26 |
+<table class="table table-sm table-striped">
+  <thead>
+    <tr>
+      <th>x</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1.8</td><td>29</td></tr>
+    <tr><td>1.8</td><td>29</td></tr>
+    <tr><td>2.0</td><td>31</td></tr>
+    <tr><td>2.0</td><td>30</td></tr>
+    <tr><td>2.8</td><td>26</td></tr>
+    <tr><td>2.8</td><td>26</td></tr>
+  </tbody>
+</table>
 
 Nothing has been drawn yet. We just have a new table that says where each row should go on the plot.
 
@@ -98,14 +106,22 @@ This still works because `log(displ)` returns one value for each row of the data
 
 So the visual dataset still has the same number of rows. It just begins like this:
 
-| x     | y  |
-|------:|---:|
-| 0.588 | 29 |
-| 0.588 | 29 |
-| 0.693 | 31 |
-| 0.693 | 30 |
-| 1.030 | 26 |
-| 1.030 | 26 |
+<table class="table table-sm table-striped">
+  <thead>
+    <tr>
+      <th>x</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>0.588</td><td>29</td></tr>
+    <tr><td>0.588</td><td>29</td></tr>
+    <tr><td>0.693</td><td>31</td></tr>
+    <tr><td>0.693</td><td>30</td></tr>
+    <tr><td>1.030</td><td>26</td></tr>
+    <tr><td>1.030</td><td>26</td></tr>
+  </tbody>
+</table>
 
 Then we can draw the plot:
 
@@ -134,14 +150,23 @@ Now `aes()` is matching:
 
 So the visual dataset begins like this:
 
-| x   | y  | color |
-|----:|---:|-------|
-| 1.8 | 29 | FALSE |
-| 1.8 | 29 | FALSE |
-| 2.0 | 31 | TRUE  |
-| 2.0 | 30 | FALSE |
-| 2.8 | 26 | FALSE |
-| 2.8 | 26 | FALSE |
+<table class="table table-sm table-striped">
+  <thead>
+    <tr>
+      <th>x</th>
+      <th>y</th>
+      <th>color</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1.8</td><td>29</td><td>FALSE</td></tr>
+    <tr><td>1.8</td><td>29</td><td>FALSE</td></tr>
+    <tr><td>2.0</td><td>31</td><td>TRUE</td></tr>
+    <tr><td>2.0</td><td>30</td><td>FALSE</td></tr>
+    <tr><td>2.8</td><td>26</td><td>FALSE</td></tr>
+    <tr><td>2.8</td><td>26</td><td>FALSE</td></tr>
+  </tbody>
+</table>
 
 The new `color` column is made of `TRUE` and `FALSE`, but it still has one value per row.
 
@@ -164,14 +189,23 @@ Here `drv` is being mapped to `shape`, just like `region` could be mapped to sha
 
 So the visual dataset begins like this:
 
-| x   | y  | shape |
-|----:|---:|-------|
-| 1.8 | 29 | f     |
-| 1.8 | 29 | f     |
-| 2.0 | 31 | f     |
-| 2.0 | 30 | 4     |
-| 2.8 | 26 | 4     |
-| 2.8 | 26 | 4     |
+<table class="table table-sm table-striped">
+  <thead>
+    <tr>
+      <th>x</th>
+      <th>y</th>
+      <th>shape</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1.8</td><td>29</td><td>f</td></tr>
+    <tr><td>1.8</td><td>29</td><td>f</td></tr>
+    <tr><td>2.0</td><td>31</td><td>f</td></tr>
+    <tr><td>2.0</td><td>30</td><td>4</td></tr>
+    <tr><td>2.8</td><td>26</td><td>4</td></tr>
+    <tr><td>2.8</td><td>26</td><td>4</td></tr>
+  </tbody>
+</table>
 
 And then the geom uses that mapping:
 
