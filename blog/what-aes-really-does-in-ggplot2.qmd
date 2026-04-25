@@ -1,0 +1,121 @@
+---
+title: "What `aes()` Really Does in ggplot2"
+author: "Ajit Khanal"
+format:
+  html:
+    toc: false
+---
+
+I wanted to learn `ggplot2` because I felt like AI was helping me make plots faster than I actually understood them. That is useful, but it also means I need a way to check whether the code and the picture really make sense.
+
+The idea that finally clicked for me was simple: `aes()` does not draw anything. It matches columns in your dataset to parts of the plot.
+
+## Start with one tiny dataset
+
+Instead of starting with lots of arguments, it helps to start with a tiny dataset we can actually read.
+
+```r
+farm_data <- data.frame(
+  farm = c("A", "B", "C"),
+  income = c(40, 55, 70),
+  yield = c(3.2, 4.1, 4.8),
+  region = c("East", "West", "East")
+)
+```
+
+| farm | income | yield | region |
+|------|--------|-------|--------|
+| A    | 40     | 3.2   | East   |
+| B    | 55     | 4.1   | West   |
+| C    | 70     | 4.8   | East   |
+
+## The simple idea
+
+`aes()` takes columns from your dataset and gives them new jobs in the plot. I like to think of it as making a small "visual dataset" that the geom can use later.
+
+## Example 1: map two columns to `x` and `y`
+
+Suppose we write:
+
+```r
+ggplot(farm_data, aes(x = income, y = yield))
+```
+
+Before we even add a geom, `aes()` is already doing something useful. It is matching:
+
+- `income` to `x`
+- `yield` to `y`
+
+So the visual dataset now looks like this:
+
+| x  | y   |
+|----|-----|
+| 40 | 3.2 |
+| 55 | 4.1 |
+| 70 | 4.8 |
+
+Nothing has been drawn yet. We just have a new table that says where each row should go on the plot.
+
+Then when we add a geom:
+
+```r
+ggplot(farm_data, aes(x = income, y = yield)) +
+  geom_point()
+```
+
+`geom_point()` uses that visual dataset and draws one point for each row.
+
+## Example 2: map one column to position and another to color
+
+Now suppose we write:
+
+```r
+ggplot(farm_data, aes(x = income, color = region))
+```
+
+This time, `aes()` matches:
+
+- `income` to `x`
+- `region` to `color`
+
+So the visual dataset now looks like this:
+
+| x  | color |
+|----|-------|
+| 40 | East  |
+| 55 | West  |
+| 70 | East  |
+
+Again, nothing has been drawn yet. We only know that rows from the East should get one color and rows from the West should get another.
+
+Then we can draw it with a geom:
+
+```r
+ggplot(farm_data, aes(x = income, color = region)) +
+  geom_density()
+```
+
+## One important difference: mapping is not the same as setting
+
+These two lines look similar, but they do different things:
+
+```r
+aes(color = region)
+color = "steelblue"
+```
+
+The first one uses data. The second one uses a fixed style.
+
+- `aes(color = region)` means color depends on the dataset
+- `color = "steelblue"` means every mark gets the same color
+
+## What I want students to take away
+
+When I read `ggplot2` code now, I ask two simple questions:
+
+- Which dataset am I starting with?
+- What new jobs is `aes()` giving to those columns?
+
+After that, the geom is much easier to understand.
+
+There are many other arguments that can go inside `aes()`, but the idea is the same: take a column from your data and match it to a part of the plot.
