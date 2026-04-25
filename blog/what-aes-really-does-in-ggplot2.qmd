@@ -18,7 +18,7 @@ library(knitr)
 
 In today's blog, I want to briefly explain what `aes()` does in `ggplot()`. There are two main takeaways:
 
-- `aes()` is a function that maps variables of your dataset (or one you have created after transformation) to a **new dataset: a visual dataset**, which `geoms` then use to construct the plot.
+- `aes()` is a function that maps variables in your dataset, or variables you create after transformation, to a **new dataset: a visual dataset**, which `geoms` then use to construct the plot.
 - All the variables that you feed into `aes()` must have the same number of rows.
 
 Understanding these two things helps build a mental model before making a plot, and it also means you do not have to memorize all the arguments that `aes()` can take.
@@ -27,9 +27,14 @@ Everything before this point is the big idea. Now let us work through it with a 
 
 ## Start with one built-in dataset
 
-I think this is more helpful for beginners than inventing a tiny dataset from scratch, because you can run the example immediately on your own machine.
-
 We will use `mpg`, a dataset that comes with `ggplot2`.
+
+This dataset records different cars and their fuel economy. In the examples below, we will mainly use:
+
+- `displ`: engine displacement
+- `hwy`: highway miles per gallon
+- `class`: the type of car
+- `drv`: whether the car is front-wheel, rear-wheel, or four-wheel drive
 
 ```{r}
 mpg_preview <- mpg |>
@@ -43,14 +48,13 @@ This is only a preview of the first 6 rows. The full dataset has `r nrow(mpg)` r
 
 ## The simple idea
 
-`aes()` takes columns from your dataset and gives them new jobs in the plot. I like to think of it as making a small visual dataset that the geom can use later.
+`aes()` takes columns from your dataset and gives them new jobs in the plot. It is useful to think of this as making a small visual dataset that the geom can use later.
 
 ## Example 1: map two columns to `x` and `y`
 
 Suppose we write:
 
-```{r}
-#| eval: false
+```{r, eval=FALSE}
 ggplot(mpg, aes(x = displ, y = hwy))
 ```
 
@@ -75,17 +79,14 @@ Then when we add a geom:
 
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point(color = "steelblue", alpha = 0.7, size = 2.5)
+  geom_point()
 ```
-
-`geom_point()` uses that visual dataset and draws one point for each row.
 
 ## Example 2: add a transformation
 
 Now suppose we transform `displ` inside `aes()`:
 
-```{r}
-#| eval: false
+```{r, eval=FALSE}
 ggplot(mpg, aes(x = log(displ), y = hwy))
 ```
 
@@ -105,19 +106,18 @@ Then we can draw the plot:
 
 ```{r}
 ggplot(mpg, aes(x = log(displ), y = hwy)) +
-  geom_point(color = "darkorange", alpha = 0.7, size = 2.5)
+  geom_point()
 ```
 
 This example helps explain the second takeaway: transformed variables are fine inside `aes()` as long as they still give one value per row.
 
 ## Example 3: create a new visual variable inside `aes()`
 
-This is closer to one of the examples from my notes, where the mapping uses a logical statement.
+In this example, the mapping uses a logical statement.
 
 Suppose we write:
 
-```{r}
-#| eval: false
+```{r, eval=FALSE}
 ggplot(mpg, aes(x = displ, y = hwy, color = hwy > 30))
 ```
 
@@ -147,15 +147,14 @@ Then we can draw the plot:
 
 ```{r}
 ggplot(mpg, aes(x = displ, y = hwy, color = hwy > 30)) +
-  geom_point(alpha = 0.75, size = 2.5)
+  geom_point()
 ```
 
-## Example 4: another mapping like the ones in my screenshot
+## Example 4: Bonus example
 
 Here is one more example using another argument inside `aes()`:
 
-```{r}
-#| eval: false
+```{r, eval=FALSE}
 ggplot(mpg, aes(x = displ, y = hwy, shape = drv))
 ```
 
@@ -182,4 +181,7 @@ ggplot(mpg, aes(x = displ, y = hwy, shape = drv)) +
   geom_point(color = "purple", alpha = 0.75, size = 2.8)
 ```
 
-There are many other arguments that can go inside `aes()`, but the basic idea is the same: take a column from your data, or create one through a transformation, and match it to a part of the plot.
+There are many other arguments that can go inside `aes()`, but the basic idea is the same. At this point, all you need to understand are the two takeaways, which I will repeat here:
+
+- `aes()` is a function that maps variables in your dataset, or variables you create after transformation, to a **new dataset: a visual dataset**, which `geoms` then use to construct the plot.
+- All the variables that you feed into `aes()` must have the same number of rows.
