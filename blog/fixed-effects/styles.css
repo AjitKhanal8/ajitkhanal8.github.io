@@ -1,0 +1,46 @@
+h3 {
+  margin-top: 2.25rem;
+  color: #c8102e;
+}
+
+h2 {
+  margin-top: 3.5rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 3px solid #f3c4cd;
+}
+
+#TOC .active {
+  color: #c8102e !important;
+  font-weight: 700;
+}
+
+#TOC a:hover {
+  color: #c8102e;
+}
+
+a {
+  color: #c8102e;
+  text-decoration-color: #e8a5b2;
+}
+
+a:hover {
+  color: #8a001c;
+}
+
+.math.display {
+  margin: 2rem 0;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  background: #fff7f8;
+  border-left: 4px solid #c8102e;
+  border-radius: 0 12px 12px 0;
+}
+
+blockquote {
+  margin: 2rem 0;
+  padding: 1.25rem 1.5rem;
+  background: #fff1f3;
+  border-left: 5px solid #c8102e;
+  border-radius: 0 12px 12px 0;
+  color: #334155;
+}
