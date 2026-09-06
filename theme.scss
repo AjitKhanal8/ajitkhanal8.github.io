@@ -414,13 +414,6 @@ body.quarto-light .quarto-title-block .quarto-title-banner {
   line-height: 1.72;
 }
 
-body:not(.homepage) #quarto-document-content > p,
-body:not(.homepage) #quarto-document-content > ul,
-body:not(.homepage) #quarto-document-content > ol {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.04rem;
-}
-
 #quarto-document-content .math.display {
   display: block;
   max-width: 100%;
