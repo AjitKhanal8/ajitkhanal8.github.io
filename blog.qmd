@@ -1,0 +1,30 @@
+---
+title: "Blog"
+description: "Notes by Ajit Khanal on econometrics, R, and applied research."
+title-block-style: none
+toc: false
+---
+
+::: {.page-heading}
+<p class="page-intro">Short, practical explanations of econometrics, R, and the tools used in applied research.</p>
+:::
+
+::: {.blog-list}
+::: {.blog-item}
+<div class="blog-date">September 6, 2026</div>
+<div>
+<h2><a href="blog/fixed-effects/">What Does It Mean to “Subtract Out” Fixed Effects?</a></h2>
+<p>A step-by-step explanation of how one, two, or several sets of fixed effects are removed from an empirical model.</p>
+<div class="blog-tags">Econometrics · Fixed effects · R</div>
+</div>
+:::
+
+::: {.blog-item}
+<div class="blog-date">April 25, 2026</div>
+<div>
+<h2><a href="blog/what-aes-really-does-in-ggplot2.html">What <code>aes()</code> Really Does in ggplot2</a></h2>
+<p>A beginner-friendly explanation of how ggplot2 maps data to visual roles.</p>
+<div class="blog-tags">R · ggplot2 · Data visualization</div>
+</div>
+:::
+:::

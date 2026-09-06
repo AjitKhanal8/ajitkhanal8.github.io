@@ -1,0 +1,40 @@
+---
+title: "Contact"
+description: "Contact Ajit Khanal."
+title-block-style: none
+toc: false
+---
+
+::: {.page-heading}
+<p class="page-intro">The best way to reach me is by email. I am happy to hear from people with questions about my research or possible collaborations.</p>
+
+<a class="ak-button" href="mailto:ajitk@vt.edu">Email me</a>
+:::
+
+::: {.contact-grid}
+::: {.contact-card}
+## Email
+
+[ajitk@vt.edu](mailto:ajitk@vt.edu)
+:::
+
+::: {.contact-card}
+## Online
+
+[LinkedIn](https://www.linkedin.com/in/ajitkhanal) · [GitHub](https://github.com/AjitKhanal8)
+:::
+
+::: {.contact-card}
+## Office
+
+<p>Hutcheson Hall, Virginia Tech<br>
+250 Drillfield Drive<br>
+Blacksburg, VA 24061</p>
+:::
+
+::: {.contact-card}
+## Phone
+
+[(706) 765-5031](tel:+17067655031)
+:::
+:::

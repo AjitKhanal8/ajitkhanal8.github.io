@@ -2,25 +2,23 @@
 title: "What Does It Mean to “Subtract Out” Fixed Effects?"
 author: "Ajit Khanal"
 date: "2026-09-06"
+description: "A step-by-step explanation of how fixed effects are removed in one-way, two-way, and multi-way models."
+categories: [Econometrics, Fixed Effects, R]
 
 format:
   html:
-    theme: flatly
-    css: styles.css
-
     page-layout: article
 
     grid:
-      body-width: 820px
-      margin-width: 260px
-      gutter-width: 2.5rem
+      body-width: 740px
+      margin-width: 230px
+      gutter-width: 2rem
 
     toc: true
     toc-location: right
     toc-title: "In this article"
     toc-depth: 3
     toc-expand: true
-    title-block-banner: true
     smooth-scroll: true
     anchor-sections: true
 
@@ -28,19 +26,6 @@ format:
     self-contained: false
 
     code-fold: false
-
-comments:
-  giscus:
-    repo: AjitKhanal8/ajitkhanal8.github.io
-    repo-id: R_kgDOQCigOw
-    category: Announcements
-    category-id: DIC_kwDOQCigO84DFA7j
-    mapping: pathname
-    reactions-enabled: true
-    input-position: top
-    theme: light
-    language: en
-    loading: lazy
 
 execute:
   echo: false

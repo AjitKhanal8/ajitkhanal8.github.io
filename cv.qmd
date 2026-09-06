@@ -1,0 +1,14 @@
+---
+title: "Curriculum Vitae"
+description: "Curriculum vitae of Ajit Khanal."
+title-block-style: none
+toc: false
+---
+
+::: {.page-heading}
+<p class="page-intro">You can read the CV below or download the PDF.</p>
+
+<a class="ak-button" href="cv.pdf" download>Download CV</a>
+:::
+
+<iframe class="cv-frame" src="cv.pdf" title="Ajit Khanal curriculum vitae"></iframe>

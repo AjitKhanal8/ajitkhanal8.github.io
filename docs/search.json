@@ -1,0 +1,191 @@
+[
+  {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Short, practical explanations of econometrics, R, and the tools used in applied research.\n\n\n\n\n\nSeptember 6, 2026\n\n\n\nWhat Does It Mean to “Subtract Out” Fixed Effects?\n\n\nA step-by-step explanation of how one, two, or several sets of fixed effects are removed from an empirical model.\n\n\nEconometrics · Fixed effects · R\n\n\n\n\n\nApril 25, 2026\n\n\n\nWhat aes() Really Does in ggplot2\n\n\nA beginner-friendly explanation of how ggplot2 maps data to visual roles.\n\n\nR · ggplot2 · Data visualization"
+  },
+  {
+    "objectID": "blog/what-aes-really-does-in-ggplot2.html",
+    "href": "blog/what-aes-really-does-in-ggplot2.html",
+    "title": "What aes() Really Does in ggplot2",
+    "section": "",
+    "text": "In today’s blog, I want to briefly explain what aes() does in ggplot(). There are two main takeaways:\nUnderstanding these two things helps build a mental model before making a plot, and it also means you do not have to memorize all the arguments that aes() can take.\nEverything before this point is the big idea. Now let us work through it with a real dataset that comes with ggplot2.\nLoad the necessary library. We will use ggplot2 for plotting.\nlibrary(ggplot2)"
+  },
+  {
+    "objectID": "blog/what-aes-really-does-in-ggplot2.html#start-with-one-built-in-dataset",
+    "href": "blog/what-aes-really-does-in-ggplot2.html#start-with-one-built-in-dataset",
+    "title": "What aes() Really Does in ggplot2",
+    "section": "Start with one built-in dataset",
+    "text": "Start with one built-in dataset\nWe will use mpg, a dataset that comes with ggplot2.\nThis dataset records different cars and their fuel economy. In the examples below, we will mainly use:\n\ndispl: engine displacement\nhwy: highway miles per gallon\nclass: the type of car\ndrv: whether the car is front-wheel, rear-wheel, or four-wheel drive\n\n\n\n\nmanufacturer\ndispl\nhwy\nclass\ndrv\n\n\n\n\naudi\n1.8\n29\ncompact\nf\n\n\naudi\n1.8\n29\ncompact\nf\n\n\naudi\n2.0\n31\ncompact\nf\n\n\naudi\n2.0\n30\ncompact\n4\n\n\naudi\n2.8\n26\ncompact\n4\n\n\naudi\n2.8\n26\ncompact\n4\n\n\n\nThis is only a preview of the first 6 rows. The full dataset has 234 rows."
+  },
+  {
+    "objectID": "blog/what-aes-really-does-in-ggplot2.html#the-simple-idea",
+    "href": "blog/what-aes-really-does-in-ggplot2.html#the-simple-idea",
+    "title": "What aes() Really Does in ggplot2",
+    "section": "The simple idea",
+    "text": "The simple idea\naes() takes columns from your dataset and gives them new jobs in the plot. It is useful to think of this as making a small visual dataset that the geom can use later."
+  },
+  {
+    "objectID": "blog/what-aes-really-does-in-ggplot2.html#example-1-map-two-columns-to-x-and-y",
+    "href": "blog/what-aes-really-does-in-ggplot2.html#example-1-map-two-columns-to-x-and-y",
+    "title": "What aes() Really Does in ggplot2",
+    "section": "Example 1: map two columns to x and y",
+    "text": "Example 1: map two columns to x and y\nSuppose we write:\n\nggplot(mpg, aes(x = displ, y = hwy))\n\nBefore we even add a geom, aes() is already doing something useful. It is matching:\n\ndispl to x\nhwy to y\n\nSo the visual dataset begins like this:\nPlease do not worry about how to make this table. For this blog, just focus on understanding what aes() does.\n\n\n\n\nx\n\n\ny\n\n\n\n\n\n\n1.8\n\n\n29\n\n\n\n\n1.8\n\n\n29\n\n\n\n\n2.0\n\n\n31\n\n\n\n\n2.0\n\n\n30\n\n\n\n\n2.8\n\n\n26\n\n\n\n\n2.8\n\n\n26\n\n\n\n\nNothing has been drawn yet. We just have a new table that says where each row should go on the plot.\nThen when we add a geom:\n\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point()"
+  },
+  {
+    "objectID": "blog/what-aes-really-does-in-ggplot2.html#example-2-add-a-transformation",
+    "href": "blog/what-aes-really-does-in-ggplot2.html#example-2-add-a-transformation",
+    "title": "What aes() Really Does in ggplot2",
+    "section": "Example 2: add a transformation",
+    "text": "Example 2: add a transformation\nNow suppose we transform displ inside aes():\n\nggplot(mpg, aes(x = log(displ), y = hwy))\n\nThis still works because log(displ) returns one value for each row of the dataset.\nSo the visual dataset still has the same number of rows. It just begins like this:\n\n\n\n\nx\n\n\ny\n\n\n\n\n\n\n0.588\n\n\n29\n\n\n\n\n0.588\n\n\n29\n\n\n\n\n0.693\n\n\n31\n\n\n\n\n0.693\n\n\n30\n\n\n\n\n1.030\n\n\n26\n\n\n\n\n1.030\n\n\n26\n\n\n\n\nThen we can draw the plot:\n\nggplot(mpg, aes(x = log(displ), y = hwy)) +\n  geom_point()\n\n\n\n\n\n\n\n\nThis example helps explain the second takeaway: transformed variables are fine inside aes() as long as they still give one value per row."
+  },
+  {
+    "objectID": "blog/what-aes-really-does-in-ggplot2.html#example-3-create-a-new-visual-variable-inside-aes",
+    "href": "blog/what-aes-really-does-in-ggplot2.html#example-3-create-a-new-visual-variable-inside-aes",
+    "title": "What aes() Really Does in ggplot2",
+    "section": "Example 3: create a new visual variable inside aes()",
+    "text": "Example 3: create a new visual variable inside aes()\nIn this example, the mapping uses a logical statement.\nSuppose we write:\n\nggplot(mpg, aes(x = displ, y = hwy, color = hwy &gt; 30))\n\nNow aes() is matching:\n\ndispl to x\nhwy to y\nhwy &gt; 30 to color\n\nSo the visual dataset begins like this:\n\n\n\n\nx\n\n\ny\n\n\ncolor\n\n\n\n\n\n\n1.8\n\n\n29\n\n\nFALSE\n\n\n\n\n1.8\n\n\n29\n\n\nFALSE\n\n\n\n\n2.0\n\n\n31\n\n\nTRUE\n\n\n\n\n2.0\n\n\n30\n\n\nFALSE\n\n\n\n\n2.8\n\n\n26\n\n\nFALSE\n\n\n\n\n2.8\n\n\n26\n\n\nFALSE\n\n\n\n\nThe new color column is made of TRUE and FALSE, but it still has one value per row.\nThen we can draw the plot:\n\nggplot(mpg, aes(x = displ, y = hwy, color = hwy &gt; 30)) +\n  geom_point()"
+  },
+  {
+    "objectID": "blog/what-aes-really-does-in-ggplot2.html#example-4-bonus-example",
+    "href": "blog/what-aes-really-does-in-ggplot2.html#example-4-bonus-example",
+    "title": "What aes() Really Does in ggplot2",
+    "section": "Example 4: Bonus example",
+    "text": "Example 4: Bonus example\nHere is one more example using another argument inside aes():\n\nggplot(mpg, aes(x = displ, y = hwy, shape = drv))\n\nHere drv is being mapped to shape, just like region could be mapped to shape in a different dataset.\nSo the visual dataset begins like this:\n\n\n\n\nx\n\n\ny\n\n\nshape\n\n\n\n\n\n\n1.8\n\n\n29\n\n\nf\n\n\n\n\n1.8\n\n\n29\n\n\nf\n\n\n\n\n2.0\n\n\n31\n\n\nf\n\n\n\n\n2.0\n\n\n30\n\n\n4\n\n\n\n\n2.8\n\n\n26\n\n\n4\n\n\n\n\n2.8\n\n\n26\n\n\n4\n\n\n\n\nAnd then the geom uses that mapping:\n\nggplot(mpg, aes(x = displ, y = hwy, shape = drv)) +\n  geom_point()\n\n\n\n\n\n\n\n\nThere are many other arguments that can go inside aes(), but the basic idea is the same. At this point, all you need to understand are the two takeaways, which I will repeat here:\n\naes() is a function that maps variables in your dataset, or variables you create after transformation, to a new dataset: a visual dataset, which geoms then use to construct the plot.\nAll the variables that you feed into aes() must have the same number of rows."
+  },
+  {
+    "objectID": "blog/what-aes-really-does-in-ggplot2.html#reference",
+    "href": "blog/what-aes-really-does-in-ggplot2.html#reference",
+    "title": "What aes() Really Does in ggplot2",
+    "section": "Reference",
+    "text": "Reference\nWickham, Hadley. 2016. ggplot2: Elegant Graphics for Data Analysis. 2nd ed. Use R! Cham: Springer. https://doi.org/10.1007/978-3-319-24277-4"
+  },
+  {
+    "objectID": "blog/what-aes-really-does-in-ggplot2.html#note",
+    "href": "blog/what-aes-really-does-in-ggplot2.html#note",
+    "title": "What aes() Really Does in ggplot2",
+    "section": "Note",
+    "text": "Note\nCodex was used to help refine the examples, shape the visual-dataset explanations, and format the post for the website."
+  },
+  {
+    "objectID": "index.html#research",
+    "href": "index.html#research",
+    "title": "Ajit Khanal",
+    "section": "Research",
+    "text": "Research\nWork on agricultural markets, trade, and empirical economics.\nExplore research →"
+  },
+  {
+    "objectID": "index.html#teaching",
+    "href": "index.html#teaching",
+    "title": "Ajit Khanal",
+    "section": "Teaching",
+    "text": "Teaching\nCourses and teaching experience in economics and causal inference.\nView teaching →"
+  },
+  {
+    "objectID": "index.html#blog",
+    "href": "index.html#blog",
+    "title": "Ajit Khanal",
+    "section": "Blog",
+    "text": "Blog\nPlain-language notes on econometrics, R, and applied research.\nRead the blog →"
+  },
+  {
+    "objectID": "contact.html#email",
+    "href": "contact.html#email",
+    "title": "Contact",
+    "section": "Email",
+    "text": "Email\najitk@vt.edu"
+  },
+  {
+    "objectID": "contact.html#online",
+    "href": "contact.html#online",
+    "title": "Contact",
+    "section": "Online",
+    "text": "Online\nLinkedIn · GitHub"
+  },
+  {
+    "objectID": "contact.html#office",
+    "href": "contact.html#office",
+    "title": "Contact",
+    "section": "Office",
+    "text": "Office\nHutcheson Hall, Virginia Tech\n250 Drillfield Drive\nBlacksburg, VA 24061"
+  },
+  {
+    "objectID": "contact.html#phone",
+    "href": "contact.html#phone",
+    "title": "Contact",
+    "section": "Phone",
+    "text": "Phone\n(706) 765-5031"
+  },
+  {
+    "objectID": "teaching.html",
+    "href": "teaching.html",
+    "title": "Teaching",
+    "section": "",
+    "text": "My teaching experience includes graduate and undergraduate economics courses at Virginia Tech and the University of Georgia.\n\n\n\n\nEconometric Theory and Practice: Causal Inference\n\nGraduate Teaching AssistantDepartment of Agricultural and Applied Economics, Virginia Tech\n\n\nFall 2025\n\n\n\nThe World Food Economy\n\nGraduate Teaching AssistantDepartment of Agricultural and Applied Economics, University of Georgia\n\n\nSpring 2023"
+  },
+  {
+    "objectID": "research.html#publications",
+    "href": "research.html#publications",
+    "title": "Research",
+    "section": "Publications",
+    "text": "Publications\n\nPeer-reviewed article\n\nThe Imported Challenge: Economic Impact of Fresh Fruit and Vegetable Imports on US Producers\n\nwith G. Munisamy and D. Poudel · Journal of Agricultural and Applied Economics, 56(4), 544–574, 2024\n\n\n\nRead abstract\n\n\nDomestic fruit and vegetable producers contend that rising imports during seasonal harvesting windows have negatively impacted domestic prices and revenue. This study simulates producers’ revenue with the removal of above-average imports as defined by the U.S. International Trade Commission. Results indicate significant additional revenues to domestic producers in the simulated scenario. Also, additional revenues to producers by state and season show substantial heterogeneity with robustness checks revealing similar patterns. Options such as risk management and technological improvements are needed to enhance the competitiveness of U.S. fresh produce industries instead of limiting imports in the absence of illegal dumping."
+  },
+  {
+    "objectID": "blog/fixed-effects/index.html",
+    "href": "blog/fixed-effects/index.html",
+    "title": "What Does It Mean to “Subtract Out” Fixed Effects?",
+    "section": "",
+    "text": "Fixed effects appear in many empirical models. However, the phrase “subtracting out the fixed effects” becomes harder to understand as a model includes more fixed-effect dimensions. This post makes that operation explicit. We begin with one time-invariant fixed effect, where the within transformation can be written in terms of group means. We then move to the two-way fixed-effects model. Finally, we use the Frisch–Waugh–Lovell theorem to show the general case where, the outcome and regressors are residualized by subtracting their projections onto the space spanned by the fixed-effect indicators."
+  },
+  {
+    "objectID": "blog/fixed-effects/index.html#case-1-one-time-invariant-fixed-effect",
+    "href": "blog/fixed-effects/index.html#case-1-one-time-invariant-fixed-effect",
+    "title": "What Does It Mean to “Subtract Out” Fixed Effects?",
+    "section": "Case 1: One Time-Invariant Fixed Effect",
+    "text": "Case 1: One Time-Invariant Fixed Effect\nTo demonstrate the one-way case, consider a country-year panel. Let \\(i\\) index countries and \\(t\\) index years. Let \\(x_{it}\\) denote democracy and \\(y_{it}\\) denote gross domestic product (GDP). Countries differ in persistent time-invariant factors. We summarize these factors with \\(\\alpha_i\\). They may affect economic performance and may also be correlated with democracy.\n\\[\ny_{it}\n=\n\\beta x_{it}\n+\n\\alpha_i\n+\nu_{it},\n\\]\nBecause \\(\\alpha_i\\) does not change over time, its country mean is also \\(\\alpha_i\\). We can subtract the country-mean equation from the original equation. The fixed effect then disappears and what remains is variation in democracy and GDP around each country’s own average over time.\n\\[\n\\begin{aligned}\ny_{it} - \\bar{y}_i\n&=\n\\beta \\left(x_{it} - \\bar{x}_i\\right)\n+ \\left(\\alpha_i - \\alpha_i\\right)\n+ \\left(u_{it} - \\bar{u}_i\\right) \\\\\n&=\n\\beta \\left(x_{it} - \\bar{x}_i\\right)\n+ \\left(u_{it} - \\bar{u}_i\\right).\n\\end{aligned}\n\\]\nAnother way to remove the time-invariant factor is to include country dummies. This regression gives every country its own intercept:\n\\[\ny_{it}\n=\n\\lambda + \\beta x_{it} + \\delta_2 1\\{i=2\\} + \\cdots + \\delta_N 1\\{i=N\\} + u_{it}.\n\\]\n\n\n\ncountry\ndummy part\ntotal intercept\n\n\n\n\n\\(i=1\\)\n\\(0\\)\n\\(\\lambda\\)\n\n\n\\(i=2\\)\n\\(\\delta_2\\)\n\\(\\lambda+\\delta_2\\)\n\n\n\\(i=N\\)\n\\(\\delta_N\\)\n\\(\\lambda+\\delta_N\\)\n\n\n\n\nThe key bridge\nWe can summarize these country-specific intercepts by defining\n\\[\n\\alpha_i\n=\n\\begin{cases}\n\\lambda, & i=1, \\\\[4pt]\n\\lambda+\\delta_i, & i=2,\\ldots,N.\n\\end{cases}\n\\]\nThis notation gives the same compact fixed-effects model:\n\\[\ny_{it}\n=\n\\beta x_{it}\n+\n\\alpha_i\n+\nu_{it}.\n\\]\nFor any given value of \\(\\beta\\), least squares chooses the country-specific intercept to match that country’s mean outcome after accounting for \\(x_{it}\\). The full least-squares derivation shows this result.\n\\[\n\\hat{\\alpha}_i\n=\n\\bar{y}_i\n-\n\\hat{\\beta}\\bar{x}_i.\n\\]\nSubstitute this expression into the fitted residual:\n\\[\n\\begin{aligned}\n\\hat{u}_{it}\n&=\ny_{it}\n-\n\\hat{\\beta}x_{it}\n-\n\\hat{\\alpha}_i \\\\\n&=\ny_{it}\n-\n\\hat{\\beta}x_{it}\n-\n\\left(\n\\bar{y}_i\n-\n\\hat{\\beta}\\bar{x}_i\n\\right) \\\\\n&=\n\\left(\ny_{it}\n-\n\\bar{y}_i\n\\right)\n-\n\\hat{\\beta}\n\\left(\nx_{it}\n-\n\\bar{x}_i\n\\right).\n\\end{aligned}\n\\]\nThe last line is the residual from the within-transformed regression. Thus, the dummy-variable and within estimators use the same variation and produce the same slope coefficient. Only the computation differs. The dummy-variable regression estimates the country intercepts, while the within transformation removes them before estimating \\(\\beta\\).\n\n\n\n\n\n\nFull least-squares derivation\n\n\n\n\n\nThe intercept and country dummies give each country its own intercept \\(\\alpha_i\\). We can therefore write the fixed-effects regression as\n\\[\n\\min_{\\beta,\\{\\alpha_i\\}}\n\\sum_{i=1}^{N}\n\\sum_{t=1}^{T_i}\n\\left(\ny_{it}\n-\n\\beta x_{it}\n-\n\\alpha_i\n\\right)^2.\n\\]\nHold \\(\\beta\\) fixed. The first-order condition for \\(\\alpha_i\\) is\n\\[\n-2\n\\sum_{t=1}^{T_i}\n\\left(\ny_{it}\n-\n\\beta x_{it}\n-\n\\alpha_i\n\\right)\n=\n0.\n\\]\nRearrange this condition:\n\\[\n\\sum_{t=1}^{T_i} y_{it}\n-\n\\beta\n\\sum_{t=1}^{T_i} x_{it}\n-\nT_i \\alpha_i\n=\n0.\n\\]\nSolve for the country intercept:\n\\[\n\\alpha_i\n=\n\\frac{1}{T_i}\n\\sum_{t=1}^{T_i} y_{it}\n-\n\\beta\n\\frac{1}{T_i}\n\\sum_{t=1}^{T_i} x_{it},\n\\]\nor\n\\[\n\\alpha_i(\\beta)\n=\n\\bar y_i\n-\n\\beta \\bar x_i.\n\\]\nSubstitute this intercept back into the least-squares objective:\n\\[\n\\min_\\beta\n\\sum_{i=1}^{N}\n\\sum_{t=1}^{T_i}\n\\left[\n\\left(\ny_{it}\n-\n\\bar y_i\n\\right)\n-\n\\beta\n\\left(\nx_{it}\n-\n\\bar x_i\n\\right)\n\\right]^2.\n\\]\nThe objective now uses only deviations from country means. It is the same least-squares problem as OLS on the within-transformed variables."
+  },
+  {
+    "objectID": "blog/fixed-effects/index.html#empirical-example-democracy-and-economic-growth",
+    "href": "blog/fixed-effects/index.html#empirical-example-democracy-and-economic-growth",
+    "title": "What Does It Mean to “Subtract Out” Fixed Effects?",
+    "section": "Empirical example: democracy and economic growth",
+    "text": "Empirical example: democracy and economic growth\nWe illustrate the one-way result using data from Acemoglu, Naidu, Restrepo, and Robinson’s Democracy Does Cause Growth (Journal of Political Economy, 2019). The file DDCGdata_final.dta is available from the MIT Economics replication archive.\nIn the replication data, y measures log GDP per capita in 2000 constant dollars multiplied by 100. The variable dem is the democracy indicator. We include one lag of the outcome to form a simplified dynamic model:\n\\[\ny_{it}\n=\n\\beta dem_{it}\n+\n\\rho y_{i,t-1}\n+\n\\alpha_i\n+\nu_{it}.\n\\]\nOur goal is not to reproduce the paper’s preferred specification, which also includes time fixed effects. We also do not address the dynamic-panel issues created by the lagged outcome. We use this simplified model only to compare country dummies with manual demeaning on the same sample. The code below constructs that sample and applies both methods.\n\nlibrary(haven)\nlibrary(dplyr)\n\nraw &lt;- read_dta(\"DDCGdata_final.dta\")\n\ndat &lt;- raw |&gt;\n  transmute(\n    country = as.character(wbcode),\n    year = as.integer(year),\n    y = as.numeric(y),\n    dem = as.numeric(dem)\n  ) |&gt;\n  arrange(country, year) |&gt;\n  group_by(country) |&gt;\n  mutate(y_lag = lag(y)) |&gt;\n  ungroup()\n\nest &lt;- dat |&gt;\n  filter(!is.na(y), !is.na(dem), !is.na(y_lag))\n\nThe table compares the within transformation with country-specific dummies. Both methods give the same coefficient on democracy and the same coefficient on the lagged outcome.\n\nlibrary(dplyr)\nlibrary(tibble)\nlibrary(knitr)\n\n# Country-dummy representation\n\nm_dummies &lt;- lm(\n  y ~ dem + y_lag + factor(country),\n  data = est\n)\n\n# Equivalent within transformation\n\nwithin &lt;- est |&gt;\n  group_by(country) |&gt;\n  mutate(\n    y_within     = y - mean(y),\n    dem_within   = dem - mean(dem),\n    y_lag_within = y_lag - mean(y_lag)\n  ) |&gt;\n  ungroup()\n\n# Regression on within-transformed variables\n\nm_demeaned &lt;- lm(\n  y_within ~ dem_within + y_lag_within - 1,\n  data = within\n)\n\n# Compare the two implementations\n\ncomparison &lt;- tibble(\n  Regressor = c(\n    \"Democracy\",\n    \"Lagged outcome\"\n  ),\n  `Country dummies` = unname(\n    coef(m_dummies)[c(\"dem\", \"y_lag\")]\n  ),\n  `Manual demeaning` = unname(\n    coef(m_demeaned)[c(\"dem_within\", \"y_lag_within\")]\n  )\n)\n\nkable(\n  comparison,\n  digits = 3,\n  align = c(\"l\", \"r\", \"r\")\n)\n\n\n\nTable 1: Equivalence of the dummy-variable and within estimators\n\n\n\n\n\n\nRegressor\nCountry dummies\nManual demeaning\n\n\n\n\nDemocracy\n1.398\n1.398\n\n\nLagged outcome\n0.977\n0.977\n\n\n\n\n\n\n\n\nThe equivalence also holds for the residuals. Once we write the country-specific intercept as \\(\\hat{\\alpha}_i=\\bar y_i-\\hat\\beta\\bar x_i\\), the two regressions produce the same residual for every observation. The following figure verifies this result:\n\nlibrary(ggplot2)\nlibrary(tibble)\n\nresidual_comparison &lt;- tibble(\n  `Country dummies` = resid(m_dummies),\n  `Manual demeaning` = resid(m_demeaned)\n)\n\nggplot(\n  residual_comparison,\n  aes(x = `Country dummies`, y = `Manual demeaning`)\n) +\n  geom_point(alpha = 0.4) +\n  geom_abline(\n    intercept = 0,\n    slope = 1,\n    linetype = \"dashed\"\n  ) +\n  coord_equal() +\n  labs(\n    x = \"Residuals from country-dummy regression\",\n    y = \"Residuals from demeaned regression\"\n  ) +\n  theme_minimal()\n\n\n\n\nResiduals from the dummy-variable and manually demeaned regressions"
+  },
+  {
+    "objectID": "blog/fixed-effects/index.html#case-2-two-way-fixed-effects",
+    "href": "blog/fixed-effects/index.html#case-2-two-way-fixed-effects",
+    "title": "What Does It Mean to “Subtract Out” Fixed Effects?",
+    "section": "Case 2: Two-Way Fixed Effects",
+    "text": "Case 2: Two-Way Fixed Effects\nThe country fixed effect removes persistent differences across countries. But countries may also face shocks that are common in a given year. Let \\(\\gamma_t\\) denote this year component. Using the notation from Case 1, the two-way fixed-effects model is\n\\[\ny_{it}\n=\n\\beta x_{it}\n+\n\\alpha_i\n+\n\\gamma_t\n+\nu_{it}.\n\\]\nWhen the panel is balanced, a simple transformation removes both fixed effects (Wooldridge, 2025). For any variable \\(x_{it}\\), the two-way within transformation is\n\\[\n\\begin{aligned}\n\\ddot{x}_{it}\n&=\nx_{it}\n-\n\\bar{x}_{i}\n-\n\\bar{x}_{t}\n+\n\\bar{x},\n\\\\\n\\ddot{y}_{it}\n&=\ny_{it}\n-\n\\bar{y}_{i}\n-\n\\bar{y}_{t}\n+\n\\bar{y}.\n\\end{aligned}\n\\]\nHere, \\(\\bar{x}_i\\) is the time mean for country \\(i\\). The term \\(\\bar{x}_t\\) is the mean across countries in year \\(t\\), and \\(\\bar{x}\\) is the overall mean. We define the corresponding means for \\(y_{it}\\) in the same way. The transformation subtracts the country and year components. It then adds back the overall mean because that mean was subtracted twice. We can see why both fixed effects disappear by applying the same transformation to \\(\\alpha_i\\) and \\(\\gamma_t\\):\n\\[\n\\begin{aligned}\n\\ddot{\\alpha}_{it}\n&=\n\\alpha_i\n-\n\\bar{\\alpha}_i\n-\n\\bar{\\alpha}_t\n+\n\\bar{\\alpha}\n\\\\\n&=\n\\alpha_i\n-\n\\alpha_i\n-\n\\bar{\\alpha}\n+\n\\bar{\\alpha}\n\\\\\n&=\n0,\n\\\\[1em]\n\\ddot{\\gamma}_{it}\n&=\n\\gamma_t\n-\n\\bar{\\gamma}_i\n-\n\\bar{\\gamma}_t\n+\n\\bar{\\gamma}\n\\\\\n&=\n\\gamma_t\n-\n\\bar{\\gamma}\n-\n\\gamma_t\n+\n\\bar{\\gamma}\n\\\\\n&=\n0.\n\\end{aligned}\n\\]\nBecause both fixed-effect components vanish under this transformation, the original regression is equivalent to\n\\[\n\\begin{aligned}\n\\ddot{y}_{it}\n&=\n\\beta \\ddot{x}_{it}\n+\n\\ddot{u}_{it}\n\\\\\ny_{it}\n-\n\\bar{y}_{i}\n-\n\\bar{y}_{t}\n+\n\\bar{y}\n&=\n\\beta\n\\left(\nx_{it}\n-\n\\bar{x}_{i}\n-\n\\bar{x}_{t}\n+\n\\bar{x}\n\\right)\n+\n\\left(\nu_{it}\n-\n\\bar{u}_{i}\n-\n\\bar{u}_{t}\n+\n\\bar{u}\n\\right).\n\\end{aligned}\n\\]\nIn a balanced two-way panel, we can therefore understand the transformation through means. This formula does not extend as simply to an unbalanced panel or to several high-dimensional fixed effects. In those cases, projection provides a clearer description."
+  },
+  {
+    "objectID": "blog/fixed-effects/index.html#case-3-from-two-way-to-many-fixed-effects-with-fwl",
+    "href": "blog/fixed-effects/index.html#case-3-from-two-way-to-many-fixed-effects-with-fwl",
+    "title": "What Does It Mean to “Subtract Out” Fixed Effects?",
+    "section": "Case 3: From Two-Way to Many Fixed Effects with FWL",
+    "text": "Case 3: From Two-Way to Many Fixed Effects with FWL\nThe one-way and two-way transformations are easy to express in terms of means. With several sets of fixed effects, projection provides the more general language. The Frisch–Waugh–Lovell (FWL) theorem makes this connection precise.\n\nThe Frisch–Waugh–Lovell theorem\nConsider a linear regression written as\n\\[\n\\mathbf{y}\n=\n\\mathbf{X}\\boldsymbol{\\beta}\n+\n\\mathbf{W}\\boldsymbol{\\gamma}\n+\n\\mathbf{u},\n\\]\nHere, \\(\\mathbf{X}\\) contains the regressors of interest, and \\(\\mathbf{W}\\) contains the controls. Let \\(\\mathbf{P}_{\\mathbf{W}}\\) denote the projection onto the column space of \\(\\mathbf{W}\\). When \\(\\mathbf{W}\\) has full column rank,1 we can write this projection as\n\\[\n\\mathbf{P}_{\\mathbf{W}}\n=\n\\mathbf{W}(\\mathbf{W}'\\mathbf{W})^{-1}\\mathbf{W}'.\n\\]\nLet \\(\\mathbf{M}_{\\mathbf{W}} = \\mathbf{I}-\\mathbf{P}_{\\mathbf{W}}\\) be the annihilator, or residual-maker, matrix. FWL recovers the coefficient on \\(\\mathbf{X}\\) in three steps:\n\nRegress \\(\\mathbf{y}\\) on \\(\\mathbf{W}\\) and keep the residuals:\n\\[\n\\tilde{\\mathbf{y}}\n= \\mathbf{M}_{\\mathbf{W}}\\mathbf{y}\n= (\\mathbf{I} - \\mathbf{P}_{\\mathbf{W}})\\mathbf{y}\n= \\mathbf{y} - \\mathbf{P}_{\\mathbf{W}}\\mathbf{y}.\n\\]\nRegress \\(\\mathbf{X}\\) on \\(\\mathbf{W}\\) and keep the residuals:\n\\[\n\\tilde{\\mathbf{X}}\n= \\mathbf{M}_{\\mathbf{W}}\\mathbf{X}\n= (\\mathbf{I} - \\mathbf{P}_{\\mathbf{W}})\\mathbf{X}\n= \\mathbf{X} - \\mathbf{P}_{\\mathbf{W}}\\mathbf{X}.\n\\]\nRegress the residuals from Step 1 on the residuals from Step 2:\n\\[\n\\tilde{\\mathbf{y}}\n= \\tilde{\\mathbf{X}}\\boldsymbol{\\beta} + \\tilde{\\mathbf{u}}.\n\\]\n\nThe coefficient \\(\\hat{\\boldsymbol{\\beta}}\\) from Step 3 is the same as the coefficient on \\(\\mathbf{X}\\) in the original regression. FWL removes from \\(\\mathbf{y}\\) and \\(\\mathbf{X}\\) the variation explained by \\(\\mathbf{W}\\). In a fixed-effects model, \\(\\mathbf{W}\\) contains the fixed-effect indicators. With several sets of fixed effects, we can write\n\\[\n\\mathbf{W}\n=\n\\left[\n\\mathbf{D}_1\n\\;\\;\n\\mathbf{D}_2\n\\;\\;\n\\cdots\n\\;\\;\n\\mathbf{D}_K\n\\right],\n\\]\nwhere each \\(\\mathbf{D}_k\\) represents one set of fixed effects. Thus, FWL removes from \\(\\mathbf{y}\\) and \\(\\mathbf{X}\\) the variation explained by all the fixed effects in \\(\\mathbf{W}\\).\n\n\nExtending the same idea to many fixed effects\nInternational trade provides a useful example. Let \\(i\\) index exporters, \\(j\\) importers, and \\(t\\) years, and consider\n\\[\n\\log Trade_{ijt}\n=\n\\beta RTA_{ijt}\n+\n\\alpha_{ij}\n+\n\\gamma_{it}\n+\n\\delta_{jt}\n+\nu_{ijt},\n\\]\nwhere \\(\\alpha_{ij}\\) represents exporter-importer pair fixed effects, \\(\\gamma_{it}\\) exporter-year fixed effects, and \\(\\delta_{jt}\\) importer-year fixed effects.\nIn matrix notation, the fixed effects can be collected in\n\\[\n\\mathbf{W}\n=\n\\left[\n\\mathbf{D}_{\\text{pair}}\n\\;\\;\n\\mathbf{D}_{\\text{exporter-year}}\n\\;\\;\n\\mathbf{D}_{\\text{importer-year}}\n\\right].\n\\]\nFWL removes from trade and RTA status the variation explained by all three sets of fixed effects. The estimate of \\(\\beta\\) uses the RTA variation that remains.\n\n\nEmpirical example: pair, exporter-year, and importer-year fixed effects\nWe use the agtpa_applications dataset from the tradepolicy package. It contains bilateral trade flows (\\(Trade_{ijt}\\)) from exporter \\(i\\) to importer \\(j\\) at time \\(t\\). It also contains an RTA indicator for each exporter-importer pair over time. Our purpose is computational, not causal. We use the model above to compare explicit FWL residualization with high-dimensional fixed-effect absorption. We first prepare the sample and construct the three fixed-effect identifiers.\n\nlibrary(dplyr)\nlibrary(fixest)\nlibrary(tradepolicy)\nlibrary(tibble)\nlibrary(knitr)\n\ndata(\"agtpa_applications\", package = \"tradepolicy\")\n\n# Keep a small set of countries so that the explicit FWL\n# regressions with dummy variables remain easy to run.\n\ncountries &lt;- c(\n  \"USA\", \"CAN\", \"MEX\", \"CHL\",\n  \"AUS\", \"KOR\", \"JPN\", \"GBR\",\n  \"DEU\", \"FRA\", \"ESP\", \"ITA\"\n)\n\ntrade_est &lt;- agtpa_applications |&gt;\n  filter(\n    exporter %in% countries,\n    importer %in% countries,\n    exporter != importer,\n    year %in% seq(1986, 2006, 4),\n    trade &gt; 0,\n    !is.na(rta)\n  ) |&gt;\n  transmute(\n    exporter,\n    importer,\n    year,\n    ln_trade = log(trade),\n    rta,\n    pair = interaction(\n      exporter, importer,\n      drop = TRUE\n    ),\n    exporter_year = interaction(\n      exporter, year,\n      drop = TRUE\n    ),\n    importer_year = interaction(\n      importer, year,\n      drop = TRUE\n    )\n  )\n\nTo make the projection visible, we implement FWL directly. Define \\(y_{ijt}=\\log Trade_{ijt}\\) and \\(x_{ijt}=RTA_{ijt}\\). We stack these observations in the vectors \\(\\mathbf{y}\\) and \\(\\mathbf{x}\\). We then project both vectors onto the space spanned by the pair, exporter-year, and importer-year indicators. As above, \\(\\widetilde{\\mathbf{y}}\\) and \\(\\widetilde{\\mathbf{x}}\\) denote the resulting residual vectors.\n\n# Residualize the outcome with respect to all fixed effects.\n\ny_on_fe &lt;- lm(\n  ln_trade ~ pair + exporter_year + importer_year,\n  data = trade_est\n)\n\n# Residualize the RTA indicator with respect to the same fixed effects.\n\nx_on_fe &lt;- lm(\n  rta ~ pair + exporter_year + importer_year,\n  data = trade_est\n)\n\n# Store the two residualized variables.\n\ntrade_fwl &lt;- trade_est |&gt;\n  mutate(\n    y_tilde = resid(y_on_fe),\n    x_tilde = resid(x_on_fe)\n  )\n\n# Estimate the partialled-out regression.\n\nm_fwl &lt;- lm(\n  y_tilde ~ x_tilde - 1,\n  data = trade_fwl\n)\n\nIn matrix notation, the two auxiliary regressions produce\n\\[\n\\widetilde{\\mathbf{y}}\n=\n\\mathbf{M}_{\\mathbf{W}}\\mathbf{y},\n\\qquad\n\\widetilde{\\mathbf{x}}\n=\n\\mathbf{M}_{\\mathbf{W}}\\mathbf{x}.\n\\]\nEach entry of \\(\\widetilde{\\mathbf y}\\) and \\(\\widetilde{\\mathbf x}\\) corresponds to one exporter–importer–year observation. In the code, these residuals are stored as y_tilde and x_tilde. The final OLS regression uses only the parts of log trade and RTA status that are orthogonal to the three fixed effects. This is the multi-way version of subtracting a country mean in Case 1.\n\nThe same model with feols()\nThe same specification can be estimated directly with feols(), which absorbs the three high-dimensional fixed effects without requiring us to create their dummy variables explicitly:\n\nm_feols &lt;- feols(\n  ln_trade ~ rta |\n    pair + exporter_year + importer_year,\n  data = trade_est\n)\n\n\ntrade_comparison &lt;- tibble(\n  Method = c(\n    \"FWL: residualize y and x\",\n    \"feols: absorb fixed effects\"\n  ),\n  Estimate = c(\n    unname(coef(m_fwl)[\"x_tilde\"]),\n    unname(coef(m_feols)[\"rta\"])\n  )\n)\n\nkable(\n  trade_comparison,\n  digits = 6,\n  align = c(\"l\", \"r\")\n)\n\n\n\nTable 2: FWL residualization and high-dimensional fixed effects\n\n\n\n\n\n\nMethod\nEstimate\n\n\n\n\nFWL: residualize y and x\n-0.094595\n\n\nfeols: absorb fixed effects\n-0.094595\n\n\n\n\n\n\n\n\nThe two estimates are identical up to numerical precision. The explicit FWL calculation shows the algebra. It removes the fixed-effect component from both the outcome and the regressor before estimating the slope. feols() performs the same operation with algorithms designed for high-dimensional fixed effects.\nThe three cases describe the same operation, not different fixed-effects estimators. With one fixed effect, the projection reduces to subtracting a group mean. With two fixed effects in a balanced panel, it reduces to double demeaning. With many fixed effects, we subtract the projection onto the full fixed-effect space."
+  },
+  {
+    "objectID": "blog/fixed-effects/index.html#references",
+    "href": "blog/fixed-effects/index.html#references",
+    "title": "What Does It Mean to “Subtract Out” Fixed Effects?",
+    "section": "References",
+    "text": "References\n\nDaron Acemoglu, Suresh Naidu, Pascual Restrepo, and James A. Robinson, “Democracy Does Cause Growth,” Journal of Political Economy 127(1), 2019, 47–100. Replication materials: https://economics.mit.edu/sites/default/files/inline-files/replication_files_ddcg%20%281%29.rar\nJeffrey M. Wooldridge, “Two-way fixed effects, the two-way Mundlak regression, and difference-in-differences estimators,” Empirical Economics (2025). Open access: https://link.springer.com/article/10.1007/s00181-025-02807-z\nSergio Correia, “A Feasible Estimator for Linear Models with Multi-Way Fixed Effects.” PDF: https://scorreia.com/research/hdfe.pdf\nYoto V. Yotov, Roberta Piermartini, José-Antonio Monteiro, and Mario Larch, An Advanced Guide to Trade Policy Analysis: The Structural Gravity Model, WTO and UNCTAD, 2016."
+  },
+  {
+    "objectID": "blog/fixed-effects/index.html#footnotes",
+    "href": "blog/fixed-effects/index.html#footnotes",
+    "title": "What Does It Mean to “Subtract Out” Fixed Effects?",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nWith complete sets of indicators for several fixed-effect dimensions, \\(\\mathbf{W}\\) is usually rank deficient. Some indicator columns are linear combinations of others. Software handles this by removing redundant columns or imposing normalizations. These choices do not change the projection, residuals, or slope coefficients.↩︎"
+  },
+  {
+    "objectID": "cv.html",
+    "href": "cv.html",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "You can read the CV below or download the PDF.\n\nDownload CV"
+  }
+]

@@ -1,0 +1,28 @@
+---
+title: "Teaching"
+description: "Teaching experience of Ajit Khanal."
+title-block-style: none
+toc: false
+---
+
+::: {.page-heading}
+<p class="page-intro">My teaching experience includes graduate and undergraduate economics courses at Virginia Tech and the University of Georgia.</p>
+:::
+
+::: {.content-card .teaching-row}
+::: {}
+### Econometric Theory and Practice: Causal Inference
+
+<p class="meta-line">Graduate Teaching Assistant<br>Department of Agricultural and Applied Economics, Virginia Tech</p>
+:::
+<span class="term">Fall 2025</span>
+:::
+
+::: {.content-card .teaching-row}
+::: {}
+### The World Food Economy
+
+<p class="meta-line">Graduate Teaching Assistant<br>Department of Agricultural and Applied Economics, University of Georgia</p>
+:::
+<span class="term">Spring 2023</span>
+:::

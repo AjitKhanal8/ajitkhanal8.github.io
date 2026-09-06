@@ -1,21 +1,13 @@
 ---
 title: "What `aes()` Really Does in ggplot2"
 author: "Ajit Khanal"
+date: "2026-04-25"
+description: "A beginner-friendly explanation of how ggplot2 maps data to visual roles."
+categories: [R, ggplot2, Data Visualization]
 format:
   html:
+    page-layout: article
     toc: false
-comments:
-  giscus:
-    repo: AjitKhanal8/ajitkhanal8.github.io
-    repo-id: R_kgDOQCigOw
-    category: Announcements
-    category-id: DIC_kwDOQCigO84DFA7j
-    mapping: pathname
-    reactions-enabled: true
-    input-position: top
-    theme: light
-    language: en
-    loading: lazy
 execute:
   echo: true
   warning: false

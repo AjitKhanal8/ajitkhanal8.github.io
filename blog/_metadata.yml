@@ -1,0 +1,12 @@
+comments:
+  giscus:
+    repo: AjitKhanal8/ajitkhanal8.github.io
+    repo-id: R_kgDOQCigOw
+    category: Announcements
+    category-id: DIC_kwDOQCigO84DFA7j
+    mapping: pathname
+    reactions-enabled: true
+    input-position: top
+    theme: light
+    language: en
+    loading: lazy

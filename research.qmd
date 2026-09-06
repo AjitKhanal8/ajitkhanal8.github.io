@@ -1,0 +1,25 @@
+---
+title: "Research"
+description: "Research by Ajit Khanal in agricultural and applied economics."
+title-block-style: none
+toc: false
+---
+
+::: {.page-heading}
+<p class="page-intro">My research is in agricultural and applied economics, with interests in trade, agricultural policy, and empirical methods.</p>
+:::
+
+## Publications
+
+::: {.content-card}
+<span class="publication-label">Peer-reviewed article</span>
+
+### [The Imported Challenge: Economic Impact of Fresh Fruit and Vegetable Imports on US Producers](https://www.cambridge.org/core/journals/journal-of-agricultural-and-applied-economics/article/imported-challenge-economic-impact-of-fresh-fruit-and-vegetable-imports-on-us-producers/F896A6DCDA1A3B07D4C300C80E61543A)
+
+<p class="meta-line">with G. Munisamy and D. Poudel · <em>Journal of Agricultural and Applied Economics</em>, 56(4), 544–574, 2024</p>
+
+<details class="abstract">
+<summary>Read abstract</summary>
+<p>Domestic fruit and vegetable producers contend that rising imports during seasonal harvesting windows have negatively impacted domestic prices and revenue. This study simulates producers' revenue with the removal of above-average imports as defined by the U.S. International Trade Commission. Results indicate significant additional revenues to domestic producers in the simulated scenario. Also, additional revenues to producers by state and season show substantial heterogeneity with robustness checks revealing similar patterns. Options such as risk management and technological improvements are needed to enhance the competitiveness of U.S. fresh produce industries instead of limiting imports in the absence of illegal dumping.</p>
+</details>
+:::

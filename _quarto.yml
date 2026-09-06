@@ -1,0 +1,51 @@
+project:
+  type: website
+  output-dir: docs
+  resources:
+    - .nojekyll
+    - profile-photo.jpg
+    - cv.pdf
+    - og.png
+
+website:
+  title: "Ajit Khanal"
+  site-url: "https://ajitkhanal8.github.io"
+  description: "Research, teaching, and notes on applied economics and econometrics."
+  image: og.png
+  image-alt: "Ajit Khanal — Applied Economics, Research, Teaching, and Notes"
+  favicon: favicon.svg
+  open-graph:
+    image: /og.png
+    locale: en_US
+    site-name: "Ajit Khanal"
+  twitter-card:
+    image: /og.png
+    card-style: summary_large_image
+  navbar:
+    background: light
+    left:
+      - href: index.qmd
+        text: Home
+      - href: research.qmd
+        text: Research
+      - href: teaching.qmd
+        text: Teaching
+      - href: blog.qmd
+        text: Blog
+      - href: cv.qmd
+        text: CV
+      - href: contact.qmd
+        text: Contact
+  page-footer:
+    left: "© 2026 Ajit Khanal"
+    right: "Agricultural and Applied Economics · Virginia Tech"
+
+format:
+  html:
+    theme:
+      - cosmo
+      - theme.scss
+    link-external-newwindow: true
+    smooth-scroll: true
+    anchor-sections: true
+    code-copy: true

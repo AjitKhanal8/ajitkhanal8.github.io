@@ -1,0 +1,59 @@
+---
+title: "Ajit Khanal"
+pagetitle: "Ajit Khanal | Agricultural and Applied Economics"
+description: "Ajit Khanal is a PhD student in Agricultural and Applied Economics at Virginia Tech."
+title-block-style: none
+page-layout: full
+toc: false
+body-classes: homepage
+---
+
+::: {.hero}
+::: {.hero-text}
+<p class="eyebrow">Applied economics · Virginia Tech</p>
+
+# Ajit Khanal
+
+<p class="hero-role">PhD Student in Agricultural and Applied Economics</p>
+
+<p class="hero-copy">I am a PhD student in Agricultural and Applied Economics at Virginia Tech. My research interests are in international trade, agricultural policy, and applied econometrics. I use this site to share my research, teaching, and short explanations of empirical methods.</p>
+
+::: {.button-row}
+<a class="ak-button" href="research.html">View research</a>
+<a class="ak-button secondary" href="cv.html">View CV</a>
+<a class="ak-button secondary" href="blog.html">Read the blog</a>
+:::
+:::
+
+::: {.hero-photo}
+<img src="profile-photo.jpg" alt="Portrait of Ajit Khanal">
+:::
+:::
+
+<hr class="home-rule">
+
+::: {.home-grid}
+::: {.home-link}
+## [Research](research.qmd)
+
+Work on agricultural markets, trade, and empirical economics.
+
+[Explore research →](research.qmd){.arrow}
+:::
+
+::: {.home-link}
+## [Teaching](teaching.qmd)
+
+Courses and teaching experience in economics and causal inference.
+
+[View teaching →](teaching.qmd){.arrow}
+:::
+
+::: {.home-link}
+## [Blog](blog.qmd)
+
+Plain-language notes on econometrics, R, and applied research.
+
+[Read the blog →](blog.qmd){.arrow}
+:::
+:::
